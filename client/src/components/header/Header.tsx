@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="flex justify-between p-4 max-w-7xl mx-auto">
+    <header className="flex justify-between py-8 max-w-7xl mx-auto">
       <Link to={"/"} className="flex items-center gap-1">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -20,15 +20,15 @@ const Header = () => {
         </svg>
         <span>HeavenEstate</span>
       </Link>
-      <div className="flex gap-8 text-3xl">
-        <div>Buy</div>
-        <div>Rent</div>
-        <div>Find Agent</div>
+      <div className="flex gap-8 text-3xl items-center font-semibold">
+        <Link to={'/properties/buy'}>Buy</Link>
+        <Link to={'/properties/rent'}>Rent</Link>
+        <Link to={'/properties/find-agent'}>Find Agent</Link>
       </div>
 
-      <div className="flex gap-3 items-center">
-        <div>Sign in</div>
-        <button>Join</button>
+      <div className="flex gap-5 items-center text-3xl font-semibold">
+        <Link to={'/login'}>Sign in</Link>
+        <Link to={'/signup'} className="rounded-lg px-7 py-3 bg-cta text-white ">Join</Link>
       </div>
     </header>
   );

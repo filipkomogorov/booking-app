@@ -10,7 +10,6 @@ const LogoSvg = (props:LogoProps) => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-    //   className="w-8 h-8"
       className={`w-${props.size} h-${props.size}`}
     >
       <path

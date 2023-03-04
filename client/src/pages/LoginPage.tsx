@@ -16,12 +16,12 @@ const onSubmit = async (
 
 const LoginPage = () => {
   return (
-    <div className="w-login mx-auto bg-white py-10 px-20 rounded-3xl flex flex-col">
+    <div className="w-login mx-auto bg-white mt-32 py-10 px-20 rounded-3xl flex flex-col">
       <div className="flex items-center gap-3 mx-auto mb-10">
         <LogoSvg size='12'/>
         <span className="text-4xl">HeavenEstate</span>
       </div>
-      <h3 className="text-center text-3xl font-semibold">Log in</h3>
+      <h3 className="text-center text-3xl font-semibold pb-12">Log in</h3>
       <Formik
         initialValues={{
           email: "",
@@ -32,14 +32,14 @@ const LoginPage = () => {
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col">
-            <TextField label="Email" name="email" type="email" />
-            <TextField label="Password" name="password" type="password" />
+            <TextField placeholder='Email' name="email" type="email" />
+            <TextField placeholder='Password' name="password" type="password" />
             <button
               disabled={isSubmitting}
               type="submit"
               className={`${
-                isSubmitting ? "bg-grey-300 text-black" : "bg-cta text-white"
-              } rounded-lg px-7 `}
+                isSubmitting ? "border border-1 bg-grey-300 text-black" : "bg-cta text-white"
+              } rounded-xl px-7 h-16`}
             >
               Submit
             </button>

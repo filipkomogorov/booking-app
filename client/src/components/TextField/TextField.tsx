@@ -1,25 +1,32 @@
+import React from "react";
 import { useField } from "formik";
-import { TextFieldProps } from "../../types/types";
 
-const TextField = ({...props }: TextFieldProps) => {
-  const [field, meta, helpers] = useField(props);
+interface TextField {
+  label: string;
+  name: string;
+  type?: string;
+}
+
+const TextField: React.FC<TextField> = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
+
   return (
-    <label>
-      {props.label}
+    <div className="">
+      <label htmlFor={props.name} className="block">
+        {label}
+      </label>
       <input
         {...field}
         {...props}
         value={field.value ? field.value : ""}
-        onBlur={() => helpers.setTouched(true)}
-        onChange={(event) => helpers.setValue(event.target.value)}
-        className={`border border-2 ${
+        className={`w-full border border-2 ${
           meta.touched && meta.error ? "border-error" : ""
         }`}
       />
       {meta.touched && meta.error && (
         <div className="text-error">{meta.error}</div>
       )}
-    </label>
+    </div>
   );
 };
 

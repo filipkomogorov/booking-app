@@ -13,7 +13,7 @@ const TextField: React.FC<TextField> = ({ ...props }) => {
   return (
     <div className="pb-8">
               <div
-        className={`rounded-xl border border-1 w-full h-16 flex flex-row items-center ${
+        className={`rounded-xl border border-1 w-full h-20 flex flex-row items-center ${
           meta.touched && meta.error ? "border-error" : ""
         }`}
       >

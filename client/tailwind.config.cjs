@@ -20,6 +20,7 @@ module.exports = {
     colors: {
       bg: '#F6F5F7',
       cta: "#E4002B",
+      link: '#0063AB',
       white: "#ffffff",
       error: "#fc8181",
     },

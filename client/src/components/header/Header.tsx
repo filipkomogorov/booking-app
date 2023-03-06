@@ -15,9 +15,9 @@ const Header = () => {
       </div>
 
       <div className="flex gap-5 items-center text-3xl font-semibold">
-        <Link to={"/login"}>Sign in</Link>
+        <Link to={"/login"}>Log in</Link>
         <Link
-          to={"/signup"}
+          to={"/register"}
           className="rounded-lg px-7 py-3 bg-cta text-white "
         >
           Join

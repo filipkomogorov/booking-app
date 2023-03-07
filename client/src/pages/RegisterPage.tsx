@@ -4,11 +4,18 @@ import TextField from "../components/TextField/TextField";
 import { Link } from "react-router-dom";
 
 import LogoSvg from "../components/Logo/LogoSvg";
+import axios from "axios";
 
 const onSubmit = async (
   values: registerSchemaTypes,
   actions: FormikHelpers<registerSchemaTypes>
 ) => {
+  // TODO make it a register hook
+  const {email, password} = values;
+  axios.post('/register', {
+    email,
+    password
+  })
   await new Promise((resolve) => setTimeout(resolve, 1000));
   actions.resetForm();
 };

@@ -1,30 +1,47 @@
-import express, {Express, Request, Response} from 'express'
-import cors from 'cors'
+import express, { Express, Request, Response } from "express";
+import mongoose from "mongoose";
+import "dotenv/config";
+import cors from "cors";
+import User from "./models/User";
+import * as bcrypt from "bcryptjs";
 
-// TODO - export this in interfaces 
-interface register {
-    email: string,
-    password: string
+const PORT = process.env.PORT || 3000;
+
+// TODO - export this in interfaces
+interface Register {
+  email: string;
+  password: string;
 }
 
-const app = express()
-app.use(express.json())
-app.use(cors({
+const app = express();
+app.use(express.json());
+app.use(
+  cors({
     credentials: true,
-    origin: 'http://localhost:5173'
-}))
+    origin: "http://localhost:5173",
+  })
+);
 
-app.get('/test', (req:Request, res:Response)=>{
-    res.send('Hello World !')
+// TODO fix this
+mongoose.connect(process.env.MONGO_URL ? process.env.MONGO_URL : "");
+
+app.get("/test", (req: Request, res: Response) => {
+  res.send("Hello World !!!");
 });
 
-app.post('/register', (req:Request, res:Response)=>{
-    const {email, password}:register = req.body;
-    res.json({email,password})
-})
+app.post("/register", async (req: Request, res: Response) => {
+  const { email, password }: Register = req.body;
+  res.json({ email, password });
 
-const PORT = process.env.PORT || 3000
- 
-app.listen(3000, ()=>{
-    console.log(`server running on port ${PORT}`)
-})
+//   TODO = handle error
+  const user = await User.create({
+    email,
+    password: bcrypt.hashSync(password, 12),
+  });
+  console.log("success");
+  return user;
+});
+
+app.listen(3000, () => {
+  console.log(`server running on port ${PORT}`);
+});

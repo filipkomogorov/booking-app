@@ -2,6 +2,8 @@ import { Form, Formik, FormikHelpers } from "formik";
 import { loginSchema } from "../schemas/LoginValidation";
 import { Login as loginSchemaTypes } from "../schemas/LoginValidation";
 import TextField from "../components/TextField/TextField";
+import axios from "axios";
+
 import { Link } from "react-router-dom";
 
 import LogoSvg from "../components/Logo/LogoSvg";
@@ -10,8 +12,17 @@ const onSubmit = async (
   values: loginSchemaTypes,
   actions: FormikHelpers<loginSchemaTypes>
 ) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  actions.resetForm();
+  try {
+    const { email, password } = values;
+    await axios.post("/login", {
+      email,
+      password,
+    });
+  } catch (err) {
+    alert('login failed')
+  }
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
+  // actions.resetForm();
 };
 
 const LoginPage = () => {
@@ -32,13 +43,15 @@ const LoginPage = () => {
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col">
-            <TextField placeholder='Email' name="email" type="email" />
-            <TextField placeholder='Password' name="password" type="password" />
+            <TextField placeholder="Email" name="email" type="email" />
+            <TextField placeholder="Password" name="password" type="password" />
             <button
               disabled={isSubmitting}
               type="submit"
               className={`${
-                isSubmitting ? "border border-1 bg-grey-300 text-black" : "bg-cta text-white"
+                isSubmitting
+                  ? "border border-1 bg-grey-300 text-black"
+                  : "bg-cta text-white"
               } rounded-xl px-7 h-20`}
             >
               Log in
@@ -48,7 +61,7 @@ const LoginPage = () => {
       </Formik>
 
       <div className="flex justify-center items-center mt-10">
-         <Link to='/recover'>Forgot Password?</Link>
+        <Link to="/recover">Forgot Password?</Link>
       </div>
     </div>
   );

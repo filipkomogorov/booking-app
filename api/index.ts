@@ -31,15 +31,18 @@ app.get("/test", (req: Request, res: Response) => {
 
 app.post("/register", async (req: Request, res: Response) => {
   const { email, password }: Register = req.body;
-  res.json({ email, password });
 
 //   TODO = handle error
-  const user = await User.create({
-    email,
-    password: bcrypt.hashSync(password, 12),
-  });
-  console.log("success");
-  return user;
+  try{
+    const user = await User.create({
+      email,
+      password: bcrypt.hashSync(password, 12),
+    });
+    return user;
+  }catch(err){
+    // TODO error handling - make a hook for different errors
+    res.status(422).json(err)
+  }
 });
 
 app.listen(3000, () => {

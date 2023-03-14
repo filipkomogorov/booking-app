@@ -11,13 +11,16 @@ const onSubmit = async (
   actions: FormikHelpers<registerSchemaTypes>
 ) => {
   // TODO make it a register hook
-  const {email, password} = values;
-  axios.post('/register', {
-    email,
-    password
-  })
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  actions.resetForm();
+  try{
+    const {email, password} = values;
+    await axios.post('/register', {
+      email,
+      password
+    })
+  }catch(err){
+    // TODO handle error
+    alert('registration failed')
+  }
 };
 
 const RegisterPage = () => {

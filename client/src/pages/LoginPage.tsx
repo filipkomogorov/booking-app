@@ -1,31 +1,40 @@
+import LogoSvg from "../components/Logo/LogoSvg";
+import { useContext } from "react";
 import { Form, Formik, FormikHelpers } from "formik";
 import { loginSchema } from "../schemas/LoginValidation";
 import { Login as loginSchemaTypes } from "../schemas/LoginValidation";
 import TextField from "../components/TextField/TextField";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
-import LogoSvg from "../components/Logo/LogoSvg";
+const LoginPage: React.FC = () => {
+  const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
+  const onSubmit = async (
+    values: loginSchemaTypes,
+    actions: FormikHelpers<loginSchemaTypes>
+  ) => {
+    try {
+      const { email, password } = values;
+      const response = await axios.post(
+        "/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
+      setUser(response.data);
+      navigate("/");
+    } catch (err) {
+      alert("login failed");
+    }
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
+    // actions.resetForm();
+  };
 
-const onSubmit = async (
-  values: loginSchemaTypes,
-  actions: FormikHelpers<loginSchemaTypes>
-) => {
-  try {
-    const { email, password } = values;
-    await axios.post("/login", {
-      email,
-      password,
-    });
-  } catch (err) {
-    alert('login failed')
-  }
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
-  // actions.resetForm();
-};
-
-const LoginPage = () => {
   return (
     <div className="w-login mx-auto bg-white mt-32 py-10 px-20 rounded-3xl flex flex-col">
       <div className="flex items-center gap-3 mx-auto mb-10">

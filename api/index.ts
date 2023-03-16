@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 import "dotenv/config";
 import cors from "cors";
 import User from "./models/User";
+import _ from 'lodash'
 import * as bcrypt from "bcryptjs";
+import * as jwt from "jsonwebtoken";
 
 const PORT = process.env.PORT || 3000;
 
@@ -12,6 +14,9 @@ interface Register {
   email: string;
   password: string;
 }
+
+// TODO export this in env
+const jwtSecret = "duash@1sdadua123141sdSDak_21!!ashdasuh";
 
 const app = express();
 app.use(express.json());
@@ -54,11 +59,21 @@ app.post("/login", async (req: Request, res: Response) => {
     if (foundUser) {
       const isValidPassword = bcrypt.compareSync(password, foundUser.password);
       if (isValidPassword) {
-        // res.status(200).json(foundUser.email)
-        res.json("ok");
+        // first object is the data we are signing, 2nd is the secret
+        // 3rd is the option and 4th is the error
+        jwt.sign({ email: foundUser.email, id: foundUser._id }, jwtSecret, {}, (err, token)=>{
+          if (err) throw err
+
+          const userWithoutPassword = _.omit(foundUser.toObject(), ['password'])
+
+          res.cookie('token', token).json(userWithoutPassword)
+        });
+
+
+
       } else {
         // res.json('not ok')
-        res.status(200).json("Invalid email or password");
+        res.status(422).json("Invalid email or password");
       }
     } else {
       res.status(404).json("not found");

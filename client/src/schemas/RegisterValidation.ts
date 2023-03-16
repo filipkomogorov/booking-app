@@ -2,12 +2,16 @@ import * as yup from "yup";
 
 export interface Register {
   email: string;
+  firstName: string;
+  lastName: string;
   password: string;
   confirmPassword: string;
 }
 
 export const registrationSchema = yup.object<Register>().shape({
   email: yup.string().email("Please enter a valid email").required("Required"),
+  firstName: yup.string().required("Required"),
+  lastName: yup.string().required("Required"),
   password: yup
     .string()
     .min(5, "Password too short")
@@ -27,7 +31,8 @@ export const registrationSchema = yup.object<Register>().shape({
         return metConditions === 3;
       }
     ),
-    confirmPassword: yup.string()
-    .oneOf([yup.ref('password'), undefined], 'Passwords must match')
-    .required('Confirm password is required'),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), undefined], "Passwords must match")
+    .required("Confirm password is required"),
 });

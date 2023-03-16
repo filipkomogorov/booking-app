@@ -14,31 +14,33 @@
 import React, { createContext, useState, ReactNode } from "react";
 
 type User = {
-    id: string,
-    email: string,
-}
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+};
 
 type UserContextValue = {
-    user: User | undefined;
-    setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
-}
+  user: User | undefined;
+  setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+};
 
-const UserContext = createContext<UserContextValue>({} as UserContextValue)
+const UserContext = createContext<UserContextValue>({} as UserContextValue);
 
 type UserContextProviderProps = {
-    children: ReactNode
-}
+  children: ReactNode;
+};
 
 const UserContextProvider: React.FC<UserContextProviderProps> = ({
-    children
-})=>{
-    const [user, setUser] = useState<User | undefined>(undefined)
+  children,
+}) => {
+  const [user, setUser] = useState<User | undefined>(undefined);
 
-    return(
-        <UserContext.Provider value = {{user, setUser}}>
-            {children}
-        </UserContext.Provider>
-    )
-}
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
 
-export {UserContext, UserContextProvider}
+export { UserContext, UserContextProvider };

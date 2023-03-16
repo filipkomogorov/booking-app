@@ -5,8 +5,7 @@ import LogoSvg from "../Logo/LogoSvg";
 
 const Header = () => {
   const { user } = useContext(UserContext);
-  console.log("here");
-  console.log(user);
+
   return (
     <header className="flex justify-between py-8 max-w-7xl mx-auto items-center">
       <Link to={"/"} className="flex items-center gap-1">
@@ -21,7 +20,7 @@ const Header = () => {
       </div>
 
       {!!user ? (
-        <div>Hello</div>
+        <div>Hello {user.firstName}</div>
       ) : (
         <div className="flex gap-5 items-center text-3xl font-semibold">
           <Link to={"/login"}>Log in</Link>

@@ -16,6 +16,7 @@ const LoginPage: React.FC = () => {
     values: loginSchemaTypes,
     actions: FormikHelpers<loginSchemaTypes>
   ) => {
+    // TODO make it a login hook
     try {
       const { email, password } = values;
       const response = await axios.post(

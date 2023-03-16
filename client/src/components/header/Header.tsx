@@ -20,6 +20,7 @@ const Header = () => {
       </div>
 
       {!!user ? (
+      // TODO - Add icon for logout or a gear icon for account settings
         <div>Hello {user.firstName}</div>
       ) : (
         <div className="flex gap-5 items-center text-3xl font-semibold">

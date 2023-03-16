@@ -1,17 +1,5 @@
-// import { createContext, useState } from "react";
-
-// export const UserContext = createContext({});
-
-// export const UserContextProvider({ children }: any) => {
-//   const [user, setUser] = useState(undefined);
-//   return (
-//     <UserContext.Provider value={{ user, setUser }}>
-//       {children}
-//     </UserContext.Provider>
-//   );
-// }
-
-import React, { createContext, useState, ReactNode } from "react";
+import axios from "axios";
+import React, { createContext, useState, ReactNode, useEffect } from "react";
 
 type User = {
   id: string;
@@ -36,6 +24,19 @@ const UserContextProvider: React.FC<UserContextProviderProps> = ({
 }) => {
   const [user, setUser] = useState<User | undefined>(undefined);
 
+  const getUserProfile = async () =>{
+    const response = await axios.get("/profile", { withCredentials: true });
+    const { data } = response;
+    setUser(data)
+  }
+
+  useEffect(() => {
+
+    if(!user){
+      getUserProfile()
+    }
+
+  }, []);
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}

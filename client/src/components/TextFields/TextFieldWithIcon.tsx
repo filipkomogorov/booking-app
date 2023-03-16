@@ -2,17 +2,17 @@ import React from "react";
 import { useField } from "formik";
 
 interface TextField {
-  placeholder?: string,
+  placeholder?: string;
   name: string;
   type?: string;
 }
 
-const TextField: React.FC<TextField> = ({ ...props }) => {
+const TextFieldWithIcon: React.FC<TextField> = ({ ...props }) => {
   const [field, meta] = useField(props);
 
   return (
     <div className="pb-8">
-              <div
+      <div
         className={`rounded-xl border border-1 w-full h-20 flex flex-row items-center ${
           meta.touched && meta.error ? "border-error" : ""
         }`}
@@ -48,4 +48,4 @@ const TextField: React.FC<TextField> = ({ ...props }) => {
   );
 };
 
-export default TextField;
+export default TextFieldWithIcon;

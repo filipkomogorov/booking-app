@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { Form, Formik, FormikHelpers } from "formik";
 import { loginSchema } from "../schemas/LoginValidation";
 import { Login as loginSchemaTypes } from "../schemas/LoginValidation";
-import TextField from "../components/TextField/TextField";
+import TextFieldWithIcon from "../components/TextFields/TextFieldWithIcon";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -31,8 +31,6 @@ const LoginPage: React.FC = () => {
     } catch (err) {
       alert("login failed");
     }
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
-    // actions.resetForm();
   };
 
   return (
@@ -52,8 +50,12 @@ const LoginPage: React.FC = () => {
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col">
-            <TextField placeholder="Email" name="email" type="email" />
-            <TextField placeholder="Password" name="password" type="password" />
+            <TextFieldWithIcon placeholder="Email" name="email" type="email" />
+            <TextFieldWithIcon
+              placeholder="Password"
+              name="password"
+              type="password"
+            />
             <button
               disabled={isSubmitting}
               type="submit"

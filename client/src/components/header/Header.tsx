@@ -5,6 +5,7 @@ import LogoSvg from "../Logo/LogoSvg";
 
 const Header = () => {
   const { user } = useContext(UserContext);
+  console.log("here");
   console.log(user);
   return (
     <header className="flex justify-between py-8 max-w-7xl mx-auto items-center">

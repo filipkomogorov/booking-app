@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import "dotenv/config";
 import cors from "cors";
 import User from "./models/User";
-import _ from 'lodash'
+import _ from "lodash";
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 
@@ -13,6 +13,8 @@ const PORT = process.env.PORT || 3000;
 interface Register {
   email: string;
   password: string;
+  firstName: string;
+  lastName: string;
 }
 
 // TODO export this in env
@@ -36,15 +38,30 @@ app.get("/test", (req: Request, res: Response) => {
 
 // REGISTER
 app.post("/register", async (req: Request, res: Response) => {
-  const { email, password }: Register = req.body;
+  const { email, password, firstName, lastName }: Register = req.body;
 
   //   TODO = handle error
   try {
     const user = await User.create({
       email,
+      firstName,
+      lastName,
       password: bcrypt.hashSync(password, 12),
     });
-    return user;
+
+    if (user) {
+      const userWithoutPassword = _.omit(user.toObject(), ["password"]);
+      jwt.sign(
+        { email: user.email, id: user._id },
+        jwtSecret,
+        {},
+        (err, token) => {
+          if (err) throw err;
+
+          res.cookie("token", token).json(userWithoutPassword);
+        }
+      );
+    }
   } catch (err) {
     // TODO error handling - make a hook for different errors
     res.status(422).json(err);
@@ -61,16 +78,20 @@ app.post("/login", async (req: Request, res: Response) => {
       if (isValidPassword) {
         // first object is the data we are signing, 2nd is the secret
         // 3rd is the option and 4th is the error
-        jwt.sign({ email: foundUser.email, id: foundUser._id }, jwtSecret, {}, (err, token)=>{
-          if (err) throw err
+        jwt.sign(
+          { email: foundUser.email, id: foundUser._id },
+          jwtSecret,
+          {},
+          (err, token) => {
+            if (err) throw err;
 
-          const userWithoutPassword = _.omit(foundUser.toObject(), ['password'])
+            const userWithoutPassword = _.omit(foundUser.toObject(), [
+              "password",
+            ]);
 
-          res.cookie('token', token).json(userWithoutPassword)
-        });
-
-
-
+            res.cookie("token", token).json(userWithoutPassword);
+          }
+        );
       } else {
         // res.json('not ok')
         res.status(422).json("Invalid email or password");

@@ -141,6 +141,14 @@ app.get("/profile", async (req: Request, res: Response) => {
   }
 });
 
+// LOGOUT
+
+
+app.post('/logout', (req,res) => {
+  res.cookie('token', '').json(true);
+});
+
+
 app.listen(3000, () => {
   console.log(`server running on port ${PORT}`);
 });

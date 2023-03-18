@@ -1,5 +1,5 @@
 import LogoSvg from "../components/Logo/LogoSvg";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Form, Formik, FormikHelpers } from "formik";
 import { loginSchema } from "../schemas/LoginValidation";
 import { Login as loginSchemaTypes } from "../schemas/LoginValidation";
@@ -11,7 +11,14 @@ import { UserContext } from "../context/UserContext";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+
+  useEffect(()=>{
+    if(user){
+      navigate('/')
+    }
+  }, [user])
+
   const onSubmit = async (
     values: loginSchemaTypes,
     actions: FormikHelpers<loginSchemaTypes>

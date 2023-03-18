@@ -9,11 +9,18 @@ import { Link, useNavigate } from "react-router-dom";
 import LogoSvg from "../components/Logo/LogoSvg";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 const RegisterPage = () => {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(user){
+      navigate('/')
+    }
+  }, [user])
+
   const onSubmit = async (
     values: registerSchemaTypes,
     actions: FormikHelpers<registerSchemaTypes>
@@ -38,6 +45,8 @@ const RegisterPage = () => {
       alert("registration failed");
     }
   };
+
+
   return (
     <div className="w-login mx-auto bg-white mt-32 py-10 px-20 rounded-3xl flex flex-col">
       <div className="flex items-center gap-3 mx-auto mb-10">

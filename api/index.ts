@@ -7,6 +7,7 @@ import _ from "lodash";
 import cookieParser from "cookie-parser";
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
+import { IUser } from "./models/UserInterface";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -81,25 +82,25 @@ app.post("/register", async (req: Request, res: Response) => {
 app.post("/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
-    const foundUser = await User.findOne({ email });
-    if (foundUser) {
-      const isValidPassword = bcrypt.compareSync(password, foundUser.password);
+    const user = await User.findOne({ email });
+    if (user) {
+      const isValidPassword = bcrypt.compareSync(password, user.password);
       if (isValidPassword) {
         // first object is the data we are signing, 2nd is the secret
         // 3rd is the option and 4th is the error
         jwt.sign(
           {
-            email: foundUser.email,
-            firstName: foundUser.firstName,
-            lastName: foundUser.lastName,
-            id: foundUser._id,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            id: user._id,
           },
           jwtSecret,
           {},
           (err, token) => {
             if (err) throw err;
 
-            const userWithoutPassword = _.omit(foundUser.toObject(), [
+            const userWithoutPassword = _.omit(user.toObject(), [
               "password",
             ]);
 
@@ -121,14 +122,20 @@ app.post("/login", async (req: Request, res: Response) => {
 // PROFILE
 
 app.get("/profile", async (req: Request, res: Response) => {
-  // res.json('ok')
   const { token } = req.cookies;
   if (token) {
-    jwt.verify(token, jwtSecret, {}, (err, user) => {
-      if (err) throw err;
-
-      res.json(user);
-    });
+    jwt.verify(token, jwtSecret, {}, async (err, user) =>{
+      if (err) throw err
+  
+      const userPayload = user as jwt.JwtPayload;
+  
+      if(userPayload.id){
+        const userData = (await User.findById(userPayload.id)) as IUser
+        const {firstName, lastName, email, id} = userData
+  
+        res.json({firstName, lastName, email, id})
+      }
+    })
   } else {
     res.status(400)
   }

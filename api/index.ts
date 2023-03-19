@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import { IUser } from "./models/UserInterface";
+import { User as UserRoles } from "./enums/User.enum";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -49,6 +50,9 @@ app.post("/register", async (req: Request, res: Response) => {
       email,
       firstName,
       lastName,
+      // by default every new user will be signed as a regular user.
+      // Admins will be added manually to the Database to avoid malicious actions
+      role: UserRoles.USER,
       password: bcrypt.hashSync(password, 12),
     });
 
@@ -94,15 +98,14 @@ app.post("/login", async (req: Request, res: Response) => {
             firstName: user.firstName,
             lastName: user.lastName,
             id: user._id,
+            role: user.role,
           },
           jwtSecret,
           {},
           (err, token) => {
             if (err) throw err;
 
-            const userWithoutPassword = _.omit(user.toObject(), [
-              "password",
-            ]);
+            const userWithoutPassword = _.omit(user.toObject(), ["password"]);
 
             res.cookie("token", token).json(userWithoutPassword);
           }
@@ -124,35 +127,33 @@ app.post("/login", async (req: Request, res: Response) => {
 app.get("/profile", async (req: Request, res: Response) => {
   const { token } = req.cookies;
   if (token) {
-    jwt.verify(token, jwtSecret, {}, async (err, user) =>{
-      if (err) throw err
-  
+    jwt.verify(token, jwtSecret, {}, async (err, user) => {
+      if (err) throw err;
+
       const userPayload = user as jwt.JwtPayload;
-  
-      if(userPayload.id){
-        const userData = (await User.findById(userPayload.id)) as IUser
-        const {firstName, lastName, email, id} = userData
-  
-        res.json({firstName, lastName, email, id})
+
+      if (userPayload.id) {
+        const userData = (await User.findById(userPayload.id)) as IUser;
+        const { firstName, lastName, email, id, role } = userData;
+
+        res.json({ firstName, lastName, email, id, role });
       }
-    })
+    });
   } else {
-    res.status(400)
+    res.status(400);
   }
 });
 
 // LOGOUT
 
-
-app.post('/logout', (req,res) => {
-  res.cookie('token', '', {
+app.post("/logout", (req, res) => {
+  res.cookie("token", "", {
     expires: new Date(0),
     httpOnly: true,
   });
 
-  res.status(200).json({ message: 'Logged out successfully' });
+  res.status(200).json({ message: "Logged out successfully" });
 });
-
 
 app.listen(3000, () => {
   console.log(`server running on port ${PORT}`);

@@ -6,6 +6,7 @@ type User = {
   email: string;
   firstName: string;
   lastName: string;
+  role: boolean;
 };
 
 type UserContextValue = {

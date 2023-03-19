@@ -4,9 +4,10 @@ import { UserContext } from "../../context/UserContext";
 import LogoSvg from "../Logo/LogoSvg";
 import { Transition, TransitionStatus } from "react-transition-group";
 import axios from "axios";
+import { deleteCookie } from "../../utils/deleteCookie";
 
 const Header = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   const handleClick = () => {
@@ -14,13 +15,19 @@ const Header = () => {
   };
 
   const handleSignout = async () => {
+
     try{
-      await axios.post('/logout')
-      
-      console.log('success')
+      const response = await axios.post('/logout');
+
+      if(response.status === 200){
+        console.log(response.data.message)
+        setUser(undefined)
+        deleteCookie('token')
+      }
     }catch(err){
-      console.log(err)
+      console.error('Error logging out', err)
     }
+
   }
 
   const duration = 100;
@@ -96,16 +103,6 @@ const Header = () => {
               </div>
             )}
           </Transition>
-          {/* {drawerOpen && (
-            <div className="relative dropdown">
-              <ul className={`absolute top-0 left-0`}>
-                <li>Account</li>
-                <li>Favorites</li>
-                <li>Messages</li>
-                <li>Logout</li>
-              </ul>
-            </div>
-          )} */}
         </div>
       ) : (
         <div className="flex gap-5 items-center text-3xl font-semibold">

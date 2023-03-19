@@ -1,5 +1,5 @@
 import LogoSvg from "../components/Logo/LogoSvg";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Form, Formik, FormikHelpers } from "formik";
 import { loginSchema } from "../schemas/LoginValidation";
 import { Login as loginSchemaTypes } from "../schemas/LoginValidation";
@@ -12,6 +12,8 @@ import { UserContext } from "../context/UserContext";
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
+  // TODO add enum for different errors
+  const [loginErr, setLoginErr] = useState(false)
 
   useEffect(()=>{
     if(user){
@@ -23,6 +25,7 @@ const LoginPage: React.FC = () => {
     values: loginSchemaTypes,
     actions: FormikHelpers<loginSchemaTypes>
   ) => {
+    setLoginErr(false)
     // TODO make it a login hook
     try {
       const { email, password } = values;
@@ -37,7 +40,8 @@ const LoginPage: React.FC = () => {
       setUser(response.data);
       navigate("/");
     } catch (err) {
-      alert("login failed");
+      // TODO handle the error if its 500 
+      setLoginErr(true)
     }
   };
 
@@ -75,6 +79,8 @@ const LoginPage: React.FC = () => {
             >
               Log in
             </button>
+            {/* TODO - make an error message component */}
+            {loginErr && <p className="text-base">Invalid email or password</p>}
           </Form>
         )}
       </Formik>

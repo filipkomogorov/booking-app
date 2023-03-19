@@ -12,6 +12,7 @@ type User = {
 type UserContextValue = {
   user: User | undefined;
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+  isReady: Boolean;
 };
 
 const UserContext = createContext<UserContextValue>({} as UserContextValue);
@@ -24,11 +25,18 @@ const UserContextProvider: React.FC<UserContextProviderProps> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | undefined>(undefined);
+  const [isReady, setIsReady] = useState<boolean>(false)
 
   const getUserProfile = async () =>{
-    const response = await axios.get("/profile", { withCredentials: true });
-    const { data } = response;
-    setUser(data)
+    try{
+      const response = await axios.get("/profile", { withCredentials: true });
+      const { data } = response;
+      setUser(data)
+      setIsReady(true)
+    }catch(err){
+      console.error('Error fetching the user', err)
+      setIsReady(true)
+    }
   }
 
   useEffect(() => {
@@ -39,7 +47,7 @@ const UserContextProvider: React.FC<UserContextProviderProps> = ({
 
   }, []);
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, isReady }}>
       {children}
     </UserContext.Provider>
   );

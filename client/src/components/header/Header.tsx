@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import LogoSvg from "../Logo/LogoSvg";
 import { Transition, TransitionStatus } from "react-transition-group";
@@ -95,7 +95,7 @@ const Header = () => {
                 }}
               >
                 <ul className={`absolute top-2 left-0`}>
-                  <li>Account</li>
+                  <NavLink to={"/account"}>Account</NavLink>
                   <li>Favorites</li>
                   <li>Messages</li>
                   <li onClick={handleSignout}>Logout</li>

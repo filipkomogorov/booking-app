@@ -6,7 +6,6 @@ import Dropdown from "../Dropdown/Dropdown";
 
 const Header = () => {
   const { user } = useContext(UserContext);
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
 
   return (

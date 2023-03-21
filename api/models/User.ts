@@ -1,8 +1,8 @@
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 import { User as UserRoles } from "../enums/User.enum";
 
 const UserSchema = new Schema({
-  email: { type: String, unique: true, required: true },
+  email: { type: String, unique: true },
   password: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },

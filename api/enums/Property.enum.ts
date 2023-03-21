@@ -1,3 +1,8 @@
+export enum AdvertisementType {
+    RENT = "FOR_RENT",
+    SELL = "FOR_SELL"
+}
+
 export enum PropertyType{
     APARTMENT = 'APARTMENT',
     TERRACED_HOUSE = 'TERRACED_HOUSE',

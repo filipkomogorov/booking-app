@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { PropertyCategory, PropertyType } from "../enums/Property.enum";
+import { AdvertisementType, PropertyCategory, PropertyType } from "../enums/Property.enum";
 
 const additionalInfoSchema = new Schema({
     basemenet: {
@@ -67,6 +67,7 @@ const PropertySchema = new Schema({
     rooms: { type: Number, required: true },
     type: { type: String, enum: PropertyType, required: true },
     category: { type: String, enum: PropertyCategory, required: true },
+    advertisementType: {type: String, enum: AdvertisementType, required: true},
     additionalInfo: additionalInfoSchema
   });
   
@@ -76,5 +77,8 @@ const RentalPropertySchema = new Schema({
   deposit: { type: Number, required: true },
   additionalInfo: additionalInfoRentalSchema
 });
+
+export const Property = model('Property', PropertySchema)
+export const RentalProperty = model('RentalProperty', RentalPropertySchema)
 
 

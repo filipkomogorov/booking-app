@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import { UserContextProvider } from "./context/UserContext";
 import axios from "axios";
 import AccountPage from "./pages/AccountPage";
+import AddProeprty from "./pages/AddProeprty";
 
 axios.defaults.baseURL = "http://localhost:3000";
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path='/account' element={<AccountPage />}/>
+          <Route path='/add' element={<AddProeprty/>}/>
           <Route path="/buy" />
           <Route path="/rent" />
           <Route path="/contacts" />

@@ -17,10 +17,6 @@ const additionalInfoSchema = new Schema({
         required: false,
         default: false
       },
-})
-
-const additionalInfoRentalSchema = new Schema({
-    ...additionalInfoSchema.obj,
       ownBath: {
         type: Boolean,
         required: false,
@@ -60,9 +56,16 @@ const additionalInfoRentalSchema = new Schema({
 
 const PropertySchema = new Schema({
     title: { type: String, required: true },
-    location: { type: Location, required: true },
+    images: {type: [String], reqired: true},
+    location: {
+      city: {type: String, required: true},
+      address: {type: String, required: true},
+      zip: {type: String, required: true},
+      region: {type: String, required: true},
+    },
     description: { type: String, required: false },
     price: { type: Number, required: true },
+    deposit: { type: Number, required: true, default: 0},
     size: { type: Number, required: true },
     rooms: { type: Number, required: true },
     type: { type: String, enum: PropertyType, required: true },
@@ -72,13 +75,7 @@ const PropertySchema = new Schema({
   });
   
 
-const RentalPropertySchema = new Schema({
-  ...PropertySchema.obj,
-  deposit: { type: Number, required: true },
-  additionalInfo: additionalInfoRentalSchema
-});
 
 export const Property = model('Property', PropertySchema)
-export const RentalProperty = model('RentalProperty', RentalPropertySchema)
 
 

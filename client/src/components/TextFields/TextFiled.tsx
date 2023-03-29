@@ -9,6 +9,7 @@ interface TextField {
 
 const TextField: React.FC<TextField> = ({ ...props }) => {
   const [field, meta] = useField(props);
+  console.log(field.value)
 
   return (
     <div className="pb-8">

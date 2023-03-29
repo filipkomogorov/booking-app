@@ -3,6 +3,11 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+
+      width: {
+        login: '50rem',
+        desktop: '72rem'
+      },
       spacing: {
         sizeSmall: '8px',
         sizeMedium: '16px',
@@ -10,12 +15,6 @@ module.exports = {
         sizeXl: '32px',
         sizeXxl: '40px',
         sizeDoubleXl: '64px',
-        '20': '20rem',
-        '22': '22rem',
-      },
-      width: {
-        login: '50rem',
-        desktop: '72rem'
       },
       fontSize: {
       }

@@ -3,18 +3,20 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+
       width: {
         login: '50rem',
-        '5': '5rem',
-        '10': '10rem',
-        '15': '15rem',
-        '20': '20rem',
-        '25': '25rem',
-        '30': '30rem',
-        '35': '35rem'
+        desktop: '72rem'
+      },
+      spacing: {
+        sizeSmall: '8px',
+        sizeMedium: '16px',
+        sizeLarge: '24px',
+        sizeXl: '32px',
+        sizeXxl: '40px',
+        sizeDoubleXl: '64px',
       },
       fontSize: {
-
       }
     },
     colors: {
@@ -24,6 +26,7 @@ module.exports = {
       white: "#ffffff",
       error: "#fc8181",
     },
+    
   },
   plugins: [],
 };

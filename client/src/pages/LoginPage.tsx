@@ -46,7 +46,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="w-login mx-auto bg-white mt-32 py-10 px-20 rounded-3xl flex flex-col">
+    <div className="w-login mx-auto bg-white mt-32 p-sizeLarge rounded-3xl flex flex-col">
       <div className="flex items-center gap-3 mx-auto mb-10">
         <LogoSvg />
         <p className="leading-none pt-2 text-4xl">HeavenEstate</p>

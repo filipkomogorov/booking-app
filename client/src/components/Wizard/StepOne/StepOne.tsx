@@ -35,8 +35,6 @@ const StepOne: React.FC<StepOneProps> = ({ onSubmit }) => {
         initialValues={initialValues}
         validationSchema={WizardStepOneSchema}
         onSubmit={(values, actions) => {
-          console.log('submitted')
-          console.log(values)
           onSubmit(values);
           actions.setSubmitting(false);
         }}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AdditionalInfo, PropertyData } from "../../models/Property";
-import { WizardStepOneProps } from "../../schemas/WizardValidation";
+import { WizardStepOneProps, WizardStepTwoProps } from "../../schemas/WizardValidation";
 import Preview from "./Preview/Preview";
 import StepOne from "./StepOne/StepOne";
 import StepThree from "./StepThree/StepThree";
@@ -18,6 +18,11 @@ const Wizard: React.FC = () => {
 
     handleStepNext();
   };
+
+  const onSubmitStepTwo = (values: WizardStepTwoProps) => {
+    setPropertyData({...propertyData, ...values})
+    handleStepNext();
+  }
 
   const handleStepNext = () => {
     setStep(step + 1);
@@ -37,9 +42,8 @@ const Wizard: React.FC = () => {
     case 2:
       return (
         <>
-          <StepTwo />
+          <StepTwo onSubmit={onSubmitStepTwo} />
           <button onClick={handleStepBack}>Back</button>
-          <button onClick={handleStepNext}>Next</button>
         </>
       );
     case 3:

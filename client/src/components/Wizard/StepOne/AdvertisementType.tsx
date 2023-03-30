@@ -6,12 +6,9 @@ interface AdvertisementTypeProps {
   name: string;
 }
 
-
-
 const AdvertisementType:React.FC<AdvertisementTypeProps> = ({name}) => {
 
   const [field, meta] = useField(name);
-  console.log(meta)
 
   return (
     <div>

@@ -67,7 +67,7 @@ const PropertySchema = new Schema({
     price: { type: String, required: true },
     deposit: { type: String, required: true, default: 0},
     size: { type: String, required: true },
-    rooms: { type: String, required: true },
+    rooms: { type: Number, required: true },
     type: { type: String, enum: PropertyType, required: true },
     category: { type: String, enum: PropertyCategory, required: true },
     advertisementType: {type: String, enum: AdvertisementType, required: true},

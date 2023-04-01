@@ -18,15 +18,16 @@ export interface AdditionalInfo {
 export interface WizardStepOneProps {
     advertisementType?: AdvertisementType,
     title: string,
-    price: string,
-    deposit: string,
+    price: number,
+    size: number,
+    rooms?: number
+    deposit: number,
     location: Location,
-    description: string
+
 }
 
 export interface WizardStepTwoProps {
-    size: string,
-    rooms?: number
+    description: string
     type?: PropertyType,
     category?: PropertyCategory,
     additionalInfo?: AdditionalInfo
@@ -35,8 +36,10 @@ export interface WizardStepTwoProps {
 export const WizardStepOneSchema  = yup.object<WizardStepOneProps>().shape({
     advertisementType: yup.mixed<AdvertisementType>().oneOf(Object.values(AdvertisementType)).required('Required'),
     title: yup.string().required('Required'),
-    price: yup.string().required('Required'),
-    deposit: yup.string(),
+    price: yup.number().required('Required'),
+    deposit: yup.number(),
+    size: yup.string().required('Required'),
+    rooms: yup.number().required('Required'),
     location: yup.object().shape({
         city: yup.string().required('Required'),
         address: yup.string().required('Required'),
@@ -46,8 +49,7 @@ export const WizardStepOneSchema  = yup.object<WizardStepOneProps>().shape({
 })
 
 export const WizardStepTwoSchema = yup.object<WizardStepTwoProps>().shape({
-    size: yup.string().required('Required'),
-    rooms: yup.number().required('Required'),
+    description: yup.string(),
     type: yup.mixed().oneOf(Object.values(PropertyType)).required('Required'),
     category: yup.mixed().oneOf(Object.values(PropertyCategory)).required('Required'),
 })

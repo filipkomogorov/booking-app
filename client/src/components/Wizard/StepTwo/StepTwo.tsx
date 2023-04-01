@@ -5,15 +5,17 @@ import TextField from '../../TextFields/TextFiled'
 import DropDown, { PropertyCategoryObject, PropertyTypeObject } from '../components/DropDown'
 import { PropertyCategory, PropertyType } from '../../../models/Property'
 import AdditionalInfo from '../components/AdditionalInfoComponent'
+import { usePropertyData } from '../../../context/PropertyContext'
 
 interface StepTwoProps {
   onSubmit: (values: WizardStepTwoProps) => void
 }
 
 const StepTwo: React.FC<StepTwoProps> = ({onSubmit}) => {
+  const {propertyData, setPropertyData} = usePropertyData()
+  console.log(propertyData)
   const initialValues: WizardStepTwoProps = {
-    size: '',
-    rooms: undefined,
+    description: '',
     type: undefined,
     category: undefined,
     additionalInfo: undefined
@@ -73,13 +75,14 @@ const StepTwo: React.FC<StepTwoProps> = ({onSubmit}) => {
       }}
       >
         <Form>
-          <TextField placeholder="Size" name='size' type='text' />
-          <TextField placeholder="Rooms" name='rooms' type='number' />
 
           <DropDown placeholder="Type" name='type' data={propertyTypes}/>
           <DropDown placeholder="Category" name='category' data={propertyCategories}/>
+          {/* TODO - replace text field with textarea */}
+          <TextField placeholder="Description" name="description" type="text" />
+
           <AdditionalInfo />
-          {/* Add a section with checkboxes for the additiona info */}
+          {/* TODO - Add a section with checkboxes for the additiona info */}
           <button type="submit">Next</button>
         </Form>
       </Formik>

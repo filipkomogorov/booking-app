@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { PropertyData } from '../models/Property';
 
 type PropertyContextType = {
-  propertyData: PropertyData | undefined;
+  propertyData: PropertyData;
   setPropertyData: (propertyData: PropertyData) => void;
 };
 
@@ -14,7 +14,7 @@ type PropertyProviderProps = {
 };
 
 export const PropertyDataProvider: React.FC<PropertyProviderProps> = ({ children }) => {
-  const [propertyData, setPropertyData] = useState<PropertyData | undefined>(undefined);
+  const [propertyData, setPropertyData] = useState<PropertyData>({} as PropertyData);
 
   return (
     <PropertyContext.Provider value={{ propertyData, setPropertyData }}>

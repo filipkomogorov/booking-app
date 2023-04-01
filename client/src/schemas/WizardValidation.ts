@@ -18,12 +18,11 @@ export interface AdditionalInfo {
 export interface WizardStepOneProps {
     advertisementType?: AdvertisementType,
     title: string,
-    price: number,
-    size: number,
+    price?: number,
+    size?: number,
     rooms?: number
     deposit: number,
     location: Location,
-
 }
 
 export interface WizardStepTwoProps {

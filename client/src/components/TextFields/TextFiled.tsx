@@ -11,7 +11,7 @@ const TextField: React.FC<TextField> = ({ ...props }) => {
   const [field, meta] = useField(props);
 
   return (
-    <div className="pb-8">
+    <div className="pb-sizeMedium">
       <div
         className={`rounded-xl border px-5 border-1 w-full h-20 flex flex-column items-center ${
           meta.touched && meta.error ? "border-error" : ""

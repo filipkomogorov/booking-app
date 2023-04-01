@@ -6,8 +6,13 @@ import StepOne from "./StepOne/StepOne";
 import StepThree from "./StepThree/StepThree";
 import StepTwo from "./StepTwo/StepTwo";
 
-const Wizard: React.FC = () => {
-  const [step, setStep] = useState<number>(1);
+type stepInterface = {
+  step: number,
+  setStep: React.Dispatch<React.SetStateAction<number>>
+}
+
+const Wizard: React.FC<stepInterface> = ({step, setStep}) => {
+
   const [propertyData, setPropertyData] = useState({});
   const [additionalData, setAdditionalData] = useState<AdditionalInfo>(
     {} as AdditionalInfo
@@ -28,10 +33,6 @@ const Wizard: React.FC = () => {
     setStep(step + 1);
   };
 
-  const handleStepBack = () => {
-    setStep(step - 1);
-  };
-
   switch (step) {
     case 1:
       return (
@@ -43,14 +44,13 @@ const Wizard: React.FC = () => {
       return (
         <>
           <StepTwo onSubmit={onSubmitStepTwo} />
-          <button onClick={handleStepBack}>Back</button>
         </>
       );
     case 3:
       return (
         <>
           <StepThree />
-          <button onClick={handleStepBack}>Back</button>
+
           <button onClick={handleStepNext}>Next</button>
         </>
       );
@@ -58,7 +58,6 @@ const Wizard: React.FC = () => {
       return (
         <>
           <Preview />
-          <button onClick={handleStepBack}>Back</button>
           <button>Submit</button>
         </>
       );

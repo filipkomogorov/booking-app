@@ -62,8 +62,8 @@ const StepTwo: React.FC<StepTwoProps> = ({onSubmit}) => {
 
   return (
     <div>
-      <div>
-        <h2>Step 2 of 3</h2>
+      <div className="mb-sizeLarge text-center">
+        <h2 className="text-xl">Step 2 of 3</h2>
       </div>
       <Formik
       initialValues={initialValues}
@@ -75,15 +75,16 @@ const StepTwo: React.FC<StepTwoProps> = ({onSubmit}) => {
       }}
       >
         <Form>
-
+          <div className='flex flex-row gap-8 pb-sizeMedium'>
           <DropDown placeholder="Type" name='type' data={propertyTypes}/>
           <DropDown placeholder="Category" name='category' data={propertyCategories}/>
+          </div>
           {/* TODO - replace text field with textarea */}
           <TextField placeholder="Description" name="description" type="text" />
 
           <AdditionalInfo />
           {/* TODO - Add a section with checkboxes for the additiona info */}
-          <button type="submit">Next</button>
+          <button type="submit" className="btwWizard">Next</button>
         </Form>
       </Formik>
     </div>

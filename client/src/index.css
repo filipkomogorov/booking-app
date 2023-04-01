@@ -11,3 +11,33 @@ body {
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.btwWizard {
+  width: 20rem;
+  height: 3.5rem;
+  font-size: 2rem;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 100%;
+  border: 2px solid black;
+  border-radius: 3px;
+
+}
+
+.btwWizard:hover{
+  color: #fff;
+  background-color: #E4002B;
+  border: none;
+}

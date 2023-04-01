@@ -22,8 +22,8 @@ const DropDown: React.FC<DropDownProps> = ({ name, data, placeholder }) => {
   const [field, meta] = useField(name);
 
   return (
-    <div>
-      <select {...field} name={name} defaultValue="">
+    <div >
+      <select {...field} name={name} defaultValue="" className="h-15 border border-black inline-block rounded-lg">
         <option value="" disabled>
           Select {placeholder}
         </option>

@@ -14,12 +14,9 @@ interface StepOneProps {
 }
 
 const StepOne: React.FC<StepOneProps> = ({ onSubmit }) => {
-  const {propertyData, setPropertyData} = usePropertyData()
-
-
+  const { propertyData, setPropertyData } = usePropertyData();
 
   const initialValues: WizardStepOneProps = {
-    ...propertyData,
     advertisementType: undefined,
     title: "",
     price: undefined,
@@ -34,37 +31,51 @@ const StepOne: React.FC<StepOneProps> = ({ onSubmit }) => {
     },
   };
 
+  const valuesWithContext = {
+    ...initialValues,
+    ...propertyData,
+  };
+
   return (
     <div>
       <div className="mb-sizeLarge text-center">
         <h2 className="text-xl">Step 1 of 3</h2>
       </div>
       <Formik
-        initialValues={initialValues}
+        initialValues={valuesWithContext}
         validationSchema={WizardStepOneSchema}
         onSubmit={(values, actions) => {
           const updatedPropertyData = {
             ...propertyData,
-            ...values
-          }
-          setPropertyData(updatedPropertyData)
+            ...values,
+          };
+          setPropertyData(updatedPropertyData);
           onSubmit(values);
           actions.setSubmitting(false);
         }}
       >
         <Form>
-          <AdvertisementType name='advertisementType'/>
+          <AdvertisementType name="advertisementType" />
           <TextField placeholder="Title" name="title" type="text" />
           <TextField placeholder="Price" name="price" type="number" />
-          <ConditionalDepositField advertisementTypeFieldName='advertisementType' depositFieldName='deposit' />
-          <TextField placeholder="Size" name='size' type='number' />
-          <TextField placeholder="Rooms" name='rooms' type='number' />
+          <ConditionalDepositField
+            advertisementTypeFieldName="advertisementType"
+            depositFieldName="deposit"
+          />
+          <TextField placeholder="Size" name="size" type="number" />
+          <TextField placeholder="Rooms" name="rooms" type="number" />
           <TextField placeholder="City" name="location.city" type="text" />
-          <TextField placeholder="Address" name="location.address" type="text" />
+          <TextField
+            placeholder="Address"
+            name="location.address"
+            type="text"
+          />
           <TextField placeholder="Zip" name="location.zip" type="text" />
           <TextField placeholder="Region" name="location.region" type="text" />
           <div className="w-full flex justify-center">
-          <button type="submit" className="btwWizard">Next</button>
+            <button type="submit" className="btwWizard">
+              Next
+            </button>
           </div>
         </Form>
       </Formik>

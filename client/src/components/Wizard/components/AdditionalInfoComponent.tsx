@@ -47,9 +47,9 @@ const additionalInfo: Array<CheckBoxProps> = [
 
 const AdditionalInfoComponent = () => {
   return (
-    <div>
+    <div className="grid grid-cols-4 gap-4 mb-sizeMedium">
       {additionalInfo.map((el, index) => (
-        <CheckBox key={index} name={el.name} label={el.label} />
+        <CheckBox key={index} name={el.name} label={el.label}  />
       ))}
     </div>
   );

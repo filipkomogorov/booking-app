@@ -9,6 +9,7 @@ import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import { IUser } from "./models/UserInterface";
 import { User as UserRoles } from "./enums/User.enum";
+import { cloudinary } from "./utils/cloudinary";
 
 const PORT = process.env.PORT || 3000;
 const app = express();

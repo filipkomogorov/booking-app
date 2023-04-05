@@ -35,7 +35,7 @@ const AdditionalInfoComponent = ({ field, form }: FieldProps) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-wrap gap-2 pb-sizeXl">
       {Object.entries(additionalInfoNames).map(([key, label]) => (
         <CheckBox
           onChange={handleCheckBoxChange}

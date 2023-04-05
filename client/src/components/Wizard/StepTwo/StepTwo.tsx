@@ -12,6 +12,7 @@ import DropDown, {
 import { PropertyCategory, PropertyType } from "../../../models/Property";
 import AdditionalInfoComponent from "../components/AdditionalInfoComponent";
 import { usePropertyData } from "../../../context/PropertyContext";
+import TextAreaField from "../../TextAreaField/TextAreaField";
 
 interface StepTwoProps {
   onSubmit: (values: WizardStepTwoProps) => void;
@@ -85,9 +86,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ onSubmit }) => {
               data={propertyCategories}
             />
           </div>
-          {/* TODO - replace text field with textarea */}
-          <TextField placeholder="Description" name="description" type="text" />
-
+          <TextAreaField placeholder="Description" name="description" type="text" />
           <Field name='additionalInfo' component={AdditionalInfoComponent} />
 
           <div className="w-full flex justify-center">

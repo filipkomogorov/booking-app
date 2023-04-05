@@ -10,6 +10,7 @@ module.exports = {
       },
       height: {
         uploadBtn: '7rem',
+        textarea: '12rem',
         addListingHeight: '828px'
       },
       spacing: {

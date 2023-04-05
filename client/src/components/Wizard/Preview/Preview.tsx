@@ -6,9 +6,7 @@ const Preview = () => {
   console.log(propertyData)
   return (
     <div>
-      {propertyData?.images.map((item, key)=>(
-        <img src={item} />
-      ))}
+      
     </div>
   )
 }

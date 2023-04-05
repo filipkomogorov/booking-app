@@ -20,7 +20,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   }
 
   return (
-    <label>
+    <label style={{width: '15rem'}}>
       <input
         className="mr-sizeSmall"
         name={value}

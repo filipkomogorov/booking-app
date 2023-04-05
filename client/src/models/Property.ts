@@ -34,8 +34,8 @@ export interface PropertyData {
     deposit?: number;
     size?: number;
     rooms?: number;
-    type: PropertyType;
-    category: PropertyCategory;
-    advertisementType: AdvertisementType;
-    additionalInfo: Array<AdditionalInfo>;
+    type?: PropertyType;
+    category?: PropertyCategory;
+    advertisementType?: AdvertisementType;
+    additionalInfo?: Array<AdditionalInfo>;
   }

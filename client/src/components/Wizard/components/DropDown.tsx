@@ -23,7 +23,7 @@ const DropDown: React.FC<DropDownProps> = ({ name, data, placeholder }) => {
 
   return (
     <div >
-      <select {...field} name={name} defaultValue="" className="h-15 border border-black inline-block rounded-lg">
+      <select {...field} name={name} defaultValue="" className="px-sizeSmall h-20 border border-black inline-block rounded-lg">
         <option value="" disabled>
           Select {placeholder}
         </option>

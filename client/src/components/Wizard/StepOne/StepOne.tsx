@@ -55,23 +55,29 @@ const StepOne: React.FC<StepOneProps> = ({ onSubmit }) => {
         }}
       >
         <Form>
-          <AdvertisementType name="advertisementType" />
-          <TextField placeholder="Title" name="title" type="text" />
-          <TextField placeholder="Price" name="price" type="number" />
-          <ConditionalDepositField
-            advertisementTypeFieldName="advertisementType"
-            depositFieldName="deposit"
-          />
-          <TextField placeholder="Size" name="size" type="number" />
-          <TextField placeholder="Rooms" name="rooms" type="number" />
-          <TextField placeholder="City" name="location.city" type="text" />
-          <TextField
-            placeholder="Address"
-            name="location.address"
-            type="text"
-          />
-          <TextField placeholder="Zip" name="location.zip" type="text" />
-          <TextField placeholder="Region" name="location.region" type="text" />
+          <div className="pb-sizeXl">
+            <AdvertisementType name="advertisementType" />
+            <TextField placeholder="Title" name="title" type="text" />
+            <TextField placeholder="Price" name="price" type="number" />
+            <ConditionalDepositField
+              advertisementTypeFieldName="advertisementType"
+              depositFieldName="deposit"
+            />
+            <TextField placeholder="Size" name="size" type="number" />
+            <TextField placeholder="Rooms" name="rooms" type="number" />
+            <TextField placeholder="City" name="location.city" type="text" />
+            <TextField
+              placeholder="Address"
+              name="location.address"
+              type="text"
+            />
+            <TextField placeholder="Zip" name="location.zip" type="text" />
+            <TextField
+              placeholder="Region"
+              name="location.region"
+              type="text"
+            />
+          </div>
           <div className="w-full flex justify-center">
             <button type="submit" className="btwWizard">
               Next

@@ -34,7 +34,7 @@ type PropertyProviderProps = {
 };
 
 export const PropertyDataProvider: React.FC<PropertyProviderProps> = ({ children }) => {
-  const [propertyData, setPropertyData] = useState<PropertyData>({} as PropertyData);
+  const [propertyData, setPropertyData] = useState<PropertyData>(initialValues);
 
   return (
     <PropertyContext.Provider value={{ propertyData, setPropertyData }}>

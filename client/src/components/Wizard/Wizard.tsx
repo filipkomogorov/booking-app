@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AdditionalInfo, PropertyData } from "../../models/Property";
+import { PropertyData } from "../../models/Property";
 import { WizardStepOneProps, WizardStepTwoProps } from "../../schemas/WizardValidation";
 import Preview from "./Preview/Preview";
 import StepOne from "./StepOne/StepOne";
@@ -14,9 +14,7 @@ type stepInterface = {
 const Wizard: React.FC<stepInterface> = ({step, setStep}) => {
 
   const [propertyData, setPropertyData] = useState({});
-  const [additionalData, setAdditionalData] = useState<AdditionalInfo>(
-    {} as AdditionalInfo
-  );
+
 
   const onSubmitStepOne = (values: WizardStepOneProps) => {
     setPropertyData({ ...propertyData, ...values });

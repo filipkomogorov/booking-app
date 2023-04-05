@@ -1,3 +1,5 @@
+import { AdditionalInfo } from "./Property.enum";
+
 export interface Location {
     city: string;
     address: string;
@@ -28,25 +30,12 @@ export interface PropertyData {
     images: Array<string>;
     location: Location;
     description: string;
-    price: number;
-    deposit: number;
-    size: number;
-    rooms: number;
+    price?: number;
+    deposit?: number;
+    size?: number;
+    rooms?: number;
     type: PropertyType;
     category: PropertyCategory;
     advertisementType: AdvertisementType;
-    additionalInfo: AdditionalInfo;
-  }
-
-  export interface AdditionalInfo {
-    basement?: boolean;
-    balcony?: boolean;
-    elevator?: boolean;
-    ownBath?: boolean;
-    stove?: boolean;
-    ownKitchen?: boolean;
-    ownToilet?: boolean;
-    refrigerator?: boolean;
-    petsAllowed?: boolean;
-    sharedLaundry?: boolean;
+    additionalInfo: Array<AdditionalInfo>;
   }

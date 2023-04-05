@@ -1,55 +1,49 @@
 import React from "react";
-import { AdditionalInfo } from "../../../models/Property";
-import CheckBox, { CheckBoxProps } from "./CheckBox";
+import { AdditionalInfo } from "../../../models/Property.enum";
+import { FieldProps } from "formik";
+import CheckBox from "./CheckBox";
+import { usePropertyData } from "../../../context/PropertyContext";
 
-const additionalInfo: Array<CheckBoxProps> = [
-  {
-    name: "basemenet",
-    label: "Basemenet",
-  },
-  {
-    name: "balcony",
-    label: "Balcony",
-  },
-  {
-    name: "elevator",
-    label: "Elevator",
-  },
-  {
-    name: "ownBath",
-    label: "Own Bath",
-  },
-  {
-    name: "stove",
-    label: "Stove",
-  },
-  {
-    name: "ownKitchen",
-    label: "Own Kitchen",
-  },
-  {
-    name: "ownToilet",
-    label: "Own Toilet",
-  },
-  {
-    name: "refrigerator",
-    label: "Refrigerator",
-  },
-  {
-    name: "petsAllowed",
-    label: "Pets Allowed",
-  },
-  {
-    name: "sharedLaundry",
-    label: "Shared Laundry",
-  },
-];
+const AdditionalInfoComponent = ({ field, form }: FieldProps) => {
+  const { propertyData, setPropertyData } = usePropertyData();
+  const additionalInfoNames: { [key in AdditionalInfo]: string } = {
+    [AdditionalInfo.BALCONY]: "Balcony",
+    [AdditionalInfo.BASEMENT]: "Basement",
+    [AdditionalInfo.ELEVATOR]: "Elevator",
+    [AdditionalInfo.OWN_BATH]: "Own Bath",
+    [AdditionalInfo.OWN_KITCHEN]: "Own Kitchen",
+    [AdditionalInfo.OWN_TOILET]: "Own Toilet",
+    [AdditionalInfo.PETS_ALLOWED]: "Pets Allowed",
+    [AdditionalInfo.REFRIGERATOR]: "Refrigerator",
+    [AdditionalInfo.SHARED_LAUNDRY]: "Shared Laundry",
+    [AdditionalInfo.STOVE]: "Stove",
+  };
 
-const AdditionalInfoComponent = () => {
+  const isChecked = (value: AdditionalInfo): boolean | undefined=> {
+    return propertyData.additionalInfo && propertyData.additionalInfo.includes(value);
+  };
+
+  const handleCheckBoxChange = (value: string, checked: boolean) => {
+    let newValue;
+    if (checked) {
+      newValue = [...(field.value || []), value];
+    } else {
+      newValue = field.value.filter((item: string) => item !== value);
+    }
+    form.setFieldValue(field.name, newValue);
+    setPropertyData({ ...propertyData, additionalInfo: newValue });
+  };
+
   return (
-    <div className="grid grid-cols-4 gap-4 mb-sizeMedium">
-      {additionalInfo.map((el, index) => (
-        <CheckBox key={index} name={el.name} label={el.label}  />
+    <div>
+      {Object.entries(additionalInfoNames).map(([key, label]) => (
+        <CheckBox
+          onChange={handleCheckBoxChange}
+          key={key}
+          name={label}
+          value={key}
+          checked={isChecked(key as AdditionalInfo)}
+        />
       ))}
     </div>
   );

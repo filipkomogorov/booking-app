@@ -7,6 +7,26 @@ type PropertyContextType = {
   setPropertyData: (propertyData: PropertyData) => void;
 };
 
+const initialValues:PropertyData = {
+  title: '',
+  images: [],
+  location: {
+    city: '',
+    address: '',
+    zip: '',
+    region: ''
+  },
+  description: '',
+  price: undefined,
+  deposit: undefined,
+  size: undefined,
+  rooms: undefined,
+  type: undefined,
+  category: undefined,
+  advertisementType: undefined,
+  additionalInfo: []
+}
+
 const PropertyContext = createContext<PropertyContextType | undefined>(undefined);
 
 type PropertyProviderProps = {

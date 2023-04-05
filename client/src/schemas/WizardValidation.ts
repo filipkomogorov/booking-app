@@ -1,19 +1,7 @@
 import * as yup from 'yup'
 import { AdvertisementType, PropertyCategory, PropertyType } from '../models/Property'
 import { Location } from '../models/Property'
-
-export interface AdditionalInfo {
-    basemenet?: boolean,
-    balcony?: boolean,
-    elevator?: boolean,
-    ownBath?: boolean,
-    stove?: boolean,
-    ownKitchen?: boolean,
-    ownToilet?: boolean,
-    refrigerator?: boolean,
-    petsAllowed?: boolean,
-    sharedLaundry?: boolean,
-}
+import { AdditionalInfo } from '../models/Property.enum'
 
 export interface WizardStepOneProps {
     advertisementType?: AdvertisementType,
@@ -29,7 +17,7 @@ export interface WizardStepTwoProps {
     description: string
     type?: PropertyType,
     category?: PropertyCategory,
-    additionalInfo?: AdditionalInfo
+    additionalInfo?: Array<AdditionalInfo>
 }
 
 export interface WizardStepThreeProps {

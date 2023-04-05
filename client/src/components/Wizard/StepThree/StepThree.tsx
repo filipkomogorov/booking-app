@@ -13,7 +13,7 @@ const StepThree: React.FC<StepThreeProps> = ({ onSubmit }) => {
   const initialValues: WizardStepThreeProps = {
     images: [],
   };
-
+  console.log(propertyData)
   return (
     <div>
       <div className="mb-sizeLarge text-center">

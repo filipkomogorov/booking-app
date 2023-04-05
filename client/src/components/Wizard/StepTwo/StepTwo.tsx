@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form } from "formik";
+import { Formik, Form, Field } from "formik";
 import {
   WizardStepTwoProps,
   WizardStepTwoSchema,
@@ -10,7 +10,7 @@ import DropDown, {
   PropertyTypeObject,
 } from "../components/DropDown";
 import { PropertyCategory, PropertyType } from "../../../models/Property";
-import AdditionalInfo from "../components/AdditionalInfoComponent";
+import AdditionalInfoComponent from "../components/AdditionalInfoComponent";
 import { usePropertyData } from "../../../context/PropertyContext";
 
 interface StepTwoProps {
@@ -19,17 +19,6 @@ interface StepTwoProps {
 
 const StepTwo: React.FC<StepTwoProps> = ({ onSubmit }) => {
   const { propertyData, setPropertyData } = usePropertyData();
-  const initialValues: WizardStepTwoProps = {
-    description: "",
-    type: undefined,
-    category: undefined,
-    additionalInfo: undefined,
-  };
-
-  const valuesWithContext = {
-    ...initialValues,
-    ...propertyData
-  }
 
   const propertyTypes: Array<PropertyTypeObject> = [
     {
@@ -75,10 +64,9 @@ const StepTwo: React.FC<StepTwoProps> = ({ onSubmit }) => {
         <h2 className="text-xl">Step 2 of 3</h2>
       </div>
       <Formik
-        initialValues={valuesWithContext}
+        initialValues={propertyData}
         validationSchema={WizardStepTwoSchema}
         onSubmit={(values, actions) => {
-          console.log(values);
           const updatedPropertyData = {
             ...propertyData,
             ...values
@@ -100,7 +88,8 @@ const StepTwo: React.FC<StepTwoProps> = ({ onSubmit }) => {
           {/* TODO - replace text field with textarea */}
           <TextField placeholder="Description" name="description" type="text" />
 
-          <AdditionalInfo />
+          <Field name='additionalInfo' component={AdditionalInfoComponent} />
+
           <div className="w-full flex justify-center">
             <button type="submit" className="btwWizard">
               Next

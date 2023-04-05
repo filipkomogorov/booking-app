@@ -1,20 +1,36 @@
-import { useField } from 'formik'
-import React from 'react'
+import { useField, useFormik } from "formik";
+import React from "react";
 
 export interface CheckBoxProps {
-    name: string
-    label: string
+  name: string;
+  checked?: boolean;
+  value: string;
+  onChange: (value: string, checked: boolean) => void;
 }
 
-const CheckBox:React.FC<CheckBoxProps> = ({name, label}) => {
-  const [field] = useField(name)
+const CheckBox: React.FC<CheckBoxProps> = ({
+  name,
+  checked,
+  value,
+  onChange
+}) => {
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(value, event.target.checked)
+  }
+
   return (
     <label>
-        <input className='mr-sizeSmall' name={name} type='checkbox' value={field.value ? field.value: false}/>
-        <span>{label}</span>
+      <input
+        className="mr-sizeSmall"
+        name={value}
+        type="checkbox"
+        checked={checked}
+        onChange={handleChange}
+      />
+      <span>{name}</span>
     </label>
+    )
+  };
 
-  )
-}
-
-export default CheckBox
+export default CheckBox;

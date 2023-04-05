@@ -3,28 +3,37 @@ import { FieldProps } from "formik";
 
 const ImageUpload: React.FC<FieldProps> = ({ field, form }) => {
   const [images, setImages] = useState<string[]>([]);
-  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files) {
-      for (let i = 0; i < files.length; i++) {
-        setImageToBase64(files[i]);
-      }
-    }
-  };
 
-  const setImageToBase64 = (image: File) => {
+
+const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const files = e.target.files;
+
+  if(files) {
+    const promises = [];
+
+    for(let i = 0; i < files.length; i++) {
+      promises.push(setImageToBase64(files[i]))
+    }
+    const base64Images = await Promise.all(promises);
+    setImages((prevImages) => [...prevImages, ...base64Images]);
+    form.setFieldValue(field.name, [
+      ...form.values[field.name],
+      ...base64Images,
+    ]);
+  }
+}
+
+const setImageToBase64 = (image: File): Promise<string> => {
+  return new Promise((resolve) => {
     const reader = new FileReader();
     reader.readAsDataURL(image);
 
     reader.onloadend = () => {
-      form.setFieldValue(field.name, [
-        ...form.values[field.name],
-        reader.result as string,
-      ]);
-      setImages((prevImages) => [...prevImages, reader.result as string]);
+      const base64Image = reader.result as string;
+      resolve(base64Image);
     };
-    console.log(field.value);
-  };
+  });
+};
 
   return (
     <div className="mb-sizeLarge">
@@ -54,6 +63,7 @@ const ImageUpload: React.FC<FieldProps> = ({ field, form }) => {
           onChange={handleImage}
           type="file"
           placeholder="Upload an image"
+          multiple
         />
       </div>
       <div>

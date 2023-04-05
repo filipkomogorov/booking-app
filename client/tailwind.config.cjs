@@ -5,7 +5,12 @@ module.exports = {
     extend: {
       width: {
         login: '50rem',
-        desktop: '72rem'
+        desktop: '72rem',
+        uploadBtn: '30rem'
+      },
+      height: {
+        uploadBtn: '7rem',
+        addListingHeight: '828px'
       },
       spacing: {
         sizeSmall: '8px',

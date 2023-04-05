@@ -19,7 +19,6 @@ interface StepTwoProps {
 
 const StepTwo: React.FC<StepTwoProps> = ({ onSubmit }) => {
   const { propertyData, setPropertyData } = usePropertyData();
-  console.log(propertyData);
   const initialValues: WizardStepTwoProps = {
     description: "",
     type: undefined,

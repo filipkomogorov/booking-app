@@ -29,6 +29,11 @@ const Wizard: React.FC<stepInterface> = ({step, setStep}) => {
     handleStepNext();
   }
 
+  const onSubmitStepThree = (values: { images: string[] }) => {
+    setPropertyData({...propertyData, ...values})
+    handleStepNext();
+  };
+
   const handleStepNext = () => {
     setStep(step + 1);
   };
@@ -49,9 +54,7 @@ const Wizard: React.FC<stepInterface> = ({step, setStep}) => {
     case 3:
       return (
         <>
-          <StepThree />
-
-          <button onClick={handleStepNext}>Next</button>
+          <StepThree onSubmit={onSubmitStepThree} />
         </>
       );
     case 4:

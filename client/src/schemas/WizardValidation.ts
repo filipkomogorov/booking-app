@@ -32,7 +32,11 @@ export interface WizardStepTwoProps {
     additionalInfo?: AdditionalInfo
 }
 
-export const WizardStepOneSchema  = yup.object<WizardStepOneProps>().shape({
+export interface WizardStepThreeProps {
+    images: Array<string>
+}
+
+export const WizardStepOneSchema = yup.object<WizardStepOneProps>().shape({
     advertisementType: yup.mixed<AdvertisementType>().oneOf(Object.values(AdvertisementType)).required('Required'),
     title: yup.string().required('Required'),
     price: yup.number().required('Required'),
@@ -51,4 +55,8 @@ export const WizardStepTwoSchema = yup.object<WizardStepTwoProps>().shape({
     description: yup.string(),
     type: yup.mixed().oneOf(Object.values(PropertyType)).required('Required'),
     category: yup.mixed().oneOf(Object.values(PropertyCategory)).required('Required'),
+})
+
+export const WizardStepThreeSchema = yup.object<WizardStepThreeProps>().shape({
+    images: yup.lazy(val => (Array.isArray(val) ? yup.array().of(yup.string()): yup.string()))
 })

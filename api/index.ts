@@ -1,4 +1,5 @@
-import express, { Express, Request, Response } from "express";
+import express, { Request, Response } from "express";
+import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import "dotenv/config";
 import cors from "cors";
@@ -10,14 +11,24 @@ import * as jwt from "jsonwebtoken";
 import { IUser } from "./models/UserInterface";
 import { User as UserRoles } from "./enums/User.enum";
 import { cloudinary } from "./utils/cloudinary";
+import { IProperty } from "./models/PropertyInterface";
+import { Property } from "./models/Property";
+import { uploadImages, verifyUser } from "./utils/utils";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-
+ 
 // TODO export this in env
-const jwtSecret = "duash@1sdadua123141sdSDak_21!!ashdasuh";
+const jwtSecret = process.env.SECRET!;
+ 
+if (!jwtSecret) {
+  console.error("No jwtSecret found in process.env");
+  process.exit(1);
+}
 
-app.use(express.json());
+// app.use(express.json());
+app.use(bodyParser.json({limit: '10mb'}))
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 app.use(
   cors({
@@ -40,6 +51,51 @@ interface Register {
 app.get("/test", (req: Request, res: Response) => {
   res.send("Hello World !!!");
 });
+
+// MAKE NEW LISTING
+app.post('/add-listing', async (req: Request, res: Response)=> {
+  const property: IProperty  = req.body
+  const {token} = req.cookies
+
+  if (token) { 
+
+    try{
+      const userPayload = await verifyUser({token, jwtSecret})
+
+      if(userPayload.id){
+        const userData = (await User.findById(userPayload.id))as IUser;
+        const {role} = userData
+
+        if(role === UserRoles.USER_ADMIN){
+          try {
+            const uploadedImageUrls = await uploadImages(property.images)
+            const listing = await Property.create({
+              ...property,
+              images: uploadedImageUrls
+            })
+        
+            if(listing){
+              res.status(200).json(listing);
+            }
+          }catch(err){
+            res.status(500).json({message: err})
+          }
+        }else{
+          res.status(401).json({message: "Not authorized"})
+        }
+      }
+    }catch(error){
+      res.status(400).json({message: "Invalid Token"})
+    }
+  } else {
+    res.status(400).json({message: "No token provided"});
+  }
+
+
+
+
+})
+
 
 // REGISTER
 app.post("/register", async (req: Request, res: Response) => {
@@ -124,29 +180,28 @@ app.post("/login", async (req: Request, res: Response) => {
 });
 
 // PROFILE
-
 app.get("/profile", async (req: Request, res: Response) => {
   const { token } = req.cookies;
-  if (token) {
-    jwt.verify(token, jwtSecret, {}, async (err, user) => {
-      if (err) throw err;
+  if (token) { 
 
-      const userPayload = user as jwt.JwtPayload;
+    try{
+      const userPayload = await verifyUser({token, jwtSecret})
 
-      if (userPayload.id) {
-        const userData = (await User.findById(userPayload.id)) as IUser;
-        const { firstName, lastName, email, id, role } = userData;
+      if(userPayload.id){
+        const userData = (await User.findById(userPayload.id))as IUser;
+        const {firstName, lastName, email, id, role} = userData
 
-        res.json({ firstName, lastName, email, id, role });
+        res.json({firstName, lastName, email, id, role})
       }
-    });
+    }catch(error){
+      res.status(400).json({message: "Invalid Token"})
+    }
   } else {
-    res.status(400);
+    res.status(400).json({message: "No token provided"});
   }
 });
 
 // LOGOUT
-
 app.post("/logout", (req, res) => {
   res.cookie("token", "", {
     expires: new Date(0),

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { PropertyData } from "../../models/Property";
 import { WizardStepOneProps, WizardStepTwoProps } from "../../schemas/WizardValidation";
 import Preview from "./Preview/Preview";
 import StepOne from "./StepOne/StepOne";
 import StepThree from "./StepThree/StepThree";
 import StepTwo from "./StepTwo/StepTwo";
+import { usePropertyData } from "../../context/PropertyContext";
+import axios from "axios";
 
 type stepInterface = {
   step: number,
@@ -12,8 +14,21 @@ type stepInterface = {
 }
 
 const Wizard: React.FC<stepInterface> = ({step, setStep}) => {
+  const {propertyData, setPropertyData} = usePropertyData()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const [propertyData, setPropertyData] = useState({});
+  const handleSubmit = async() => {
+    setIsLoading(true)
+
+    try{
+      const response = await axios.post('/add-listing', {...propertyData}, { withCredentials: true })
+      console.log('HERE')
+      console.log(response.data)
+    }catch(err){
+      console.error(err)
+    }
+  } 
+
 
 
   const onSubmitStepOne = (values: WizardStepOneProps) => {
@@ -59,7 +74,7 @@ const Wizard: React.FC<stepInterface> = ({step, setStep}) => {
       return (
         <>
           <Preview />
-          <button>Submit</button>
+          <button onClick={()=>handleSubmit()}>Submit</button>
         </>
       );
     default:

@@ -67,7 +67,7 @@ const ImageUpload: React.FC<FieldProps> = ({ field, form }) => {
           multiple
         />
       </div>
-      <div className="flex flex-wrap gap-4" style={{}}>
+      <div className="flex flex-wrap gap-4 items-center justify-center" style={{}}>
         {images.map((el, index) => (
           <img
             key={index}

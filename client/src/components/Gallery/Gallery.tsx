@@ -5,7 +5,6 @@ interface GalleryProps {
 }
 
 const Gallery: React.FC<GalleryProps> = ({ images }) => {
-  console.log(images.length);
   let headImage: string | undefined;
   if (images.length !== 0) {
     headImage = images[0]

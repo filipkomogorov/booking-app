@@ -29,7 +29,7 @@ export interface PropertyData {
     title: string;
     images: Array<string>;
     location: Location;
-    description: string;
+    description?: string;
     price?: number;
     deposit?: number;
     size?: number;

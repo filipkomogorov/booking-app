@@ -1,4 +1,4 @@
-import { PropertyCategory, PropertyType } from "../enums/Property.enum";
+import { AdditionalInfo, PropertyCategory, PropertyType, AdvertisementType } from "../enums/Property.enum";
 
 export interface Location {
   city: string;
@@ -7,36 +7,19 @@ export interface Location {
   region: string;
 }
 
-export interface AdditionalInfo {
-  basemenet: boolean;
-  balcony: boolean;
-  elevator: boolean;
-}
-
-export interface AdditionalInfoRental extends AdditionalInfo {
-  ownBath: boolean;
-  stove: boolean;
-  ownKitchen: boolean;
-  ownToilet: boolean;
-  refrigerator: boolean;
-  petsAllowed: boolean;
-  sharedLaundry: boolean;
-}
-
 export interface IProperty {
   id?: string;
-  description?: string;
   title: string;
+  images: Array<string>;
   location: Location;
+  description?: string;
+  deposit?: number;
   price: number;
   size: number;
   rooms: number;
   type: PropertyType;
   category: PropertyCategory;
-  additionalInfo: AdditionalInfo;
+  advertisementType: AdvertisementType;
+  additionalInfo: Array<AdditionalInfo>;
 }
 
-export interface IRentalProperty extends IProperty {
-  deposit: number;
-  additionalInfo: AdditionalInfoRental;
-}

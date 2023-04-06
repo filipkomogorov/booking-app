@@ -34,7 +34,6 @@ const UserContextProvider: React.FC<UserContextProviderProps> = ({
       setUser(data)
       setIsReady(true)
     }catch(err){
-      console.error('Error fetching the user', err)
       setIsReady(true)
     }
   }

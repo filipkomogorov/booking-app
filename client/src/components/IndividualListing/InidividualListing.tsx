@@ -1,7 +1,7 @@
 import React from "react";
 
-import { PropertyData } from "../models/Property";
-import Gallery from "../components/Gallery/Gallery";
+import { PropertyData } from "../../models/Property";
+import Gallery from "../Gallery/Gallery";
 
 interface IndividualListingProps {
   listing: PropertyData;

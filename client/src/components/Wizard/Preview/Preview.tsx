@@ -1,6 +1,6 @@
 import React from 'react'
 import { usePropertyData } from '../../../context/PropertyContext'
-import InidividualListing from '../../../pages/InidividualListing'
+import InidividualListing from '../../IndividualListing/InidividualListing'
 
 const Preview = () => {
   const {propertyData} = usePropertyData()

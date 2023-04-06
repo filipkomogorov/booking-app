@@ -1,28 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
+import { Carousel } from "../Carousel/Carousel";
 
 interface GalleryProps {
   images: Array<string>;
 }
 
 const Gallery: React.FC<GalleryProps> = ({ images }) => {
-  let headImage: string | undefined;
-  if (images.length !== 0) {
-    headImage = images[0]
-  } else {
-    return null;
-  }
-// headImage = images.shift();
+  const [selectedImage, setSelectedImage] = useState<number>(0);
+
   return (
-    <div>
-      <div>
+    <div style={{ width: "60%" }}>
+      <div style={{ marginBottom: "5px" }}>
         <img
           style={{
-            width: "60%",
-            height: "50rem",
+            width: "100%",
+            height: "43rem",
             objectFit: "cover",
           }}
-          src={headImage}
+          src={images[selectedImage]}
         />
+      </div>
+      <div
+        id="secondaryImages"
+        className="flex gap-1"
+        style={{ width: "100%", minHeight: "12rem", overflowX: "scroll" }}
+      >
+        <Carousel>
+          {images.map((img, index) => (
+            <img
+              style={{
+                width: "18rem",
+                height: "12rem",
+                objectFit: "cover",
+              }}
+              src={images[index]}
+              onClick={() => setSelectedImage(index)}
+              key={index}
+            />
+          ))}
+        </Carousel>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
-import React, { useContext, useState } from "react";
-import { PropertyData } from "../../models/Property";
+import React, { useState } from "react";
 import {
   WizardStepOneProps,
   WizardStepTwoProps,
@@ -29,6 +28,8 @@ const Wizard: React.FC<stepInterface> = ({ step, setStep }) => {
         "/add-listing",
         { ...propertyData },
         { withCredentials: true }
+
+        // If response => Navigate to the individual listing page
       );
       setIsLoading(false);
     } catch (err) {

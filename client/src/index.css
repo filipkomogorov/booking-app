@@ -24,6 +24,15 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+#secondaryImages::-webkit-scrollbar {
+  display: none;
+}
+
+#secondaryImages{
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 .btwWizard {
   width: 20rem;
   height: 3.5rem;

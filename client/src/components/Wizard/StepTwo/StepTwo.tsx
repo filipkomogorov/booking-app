@@ -4,7 +4,6 @@ import {
   WizardStepTwoProps,
   WizardStepTwoSchema,
 } from "../../../schemas/WizardValidation";
-import TextField from "../../TextFields/TextFiled";
 import DropDown, {
   PropertyCategoryObject,
   PropertyTypeObject,

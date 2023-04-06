@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Formik, useField, useFormik } from "formik";
+import NextButton from '../components/NextButton'
 import {
   WizardStepOneProps,
   WizardStepOneSchema,
@@ -78,11 +79,7 @@ const StepOne: React.FC<StepOneProps> = ({ onSubmit }) => {
               type="text"
             />
           </div>
-          <div className="w-full flex justify-center">
-            <button type="submit" className="btwWizard">
-              Next
-            </button>
-          </div>
+          <NextButton />
         </Form>
       </Formik>
     </div>

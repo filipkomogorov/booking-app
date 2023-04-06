@@ -83,7 +83,11 @@ const Wizard: React.FC<stepInterface> = ({ step, setStep }) => {
       ) : (
         <>
           <Preview />
-          <button onClick={() => handleSubmit()}>Submit</button>
+          <div className="w-full flex justify-center mt-sizeDoubleXl">
+            <button onClick={() => handleSubmit()} type="submit" className="btwWizard">
+              Submit
+            </button>
+          </div>
         </>
       );
     default:

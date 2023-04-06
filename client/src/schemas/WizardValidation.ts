@@ -14,7 +14,7 @@ export interface WizardStepOneProps {
 }
 
 export interface WizardStepTwoProps {
-    description: string
+    description?: string
     type?: PropertyType,
     category?: PropertyCategory,
     additionalInfo?: Array<AdditionalInfo>

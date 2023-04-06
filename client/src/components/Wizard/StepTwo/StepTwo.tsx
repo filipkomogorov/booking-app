@@ -13,6 +13,7 @@ import { PropertyCategory, PropertyType } from "../../../models/Property";
 import AdditionalInfoComponent from "../components/AdditionalInfoComponent";
 import { usePropertyData } from "../../../context/PropertyContext";
 import TextAreaField from "../../TextAreaField/TextAreaField";
+import NextButton from "../components/NextButton";
 
 interface StepTwoProps {
   onSubmit: (values: WizardStepTwoProps) => void;
@@ -70,9 +71,9 @@ const StepTwo: React.FC<StepTwoProps> = ({ onSubmit }) => {
         onSubmit={(values, actions) => {
           const updatedPropertyData = {
             ...propertyData,
-            ...values
-          }
-          setPropertyData(updatedPropertyData)
+            ...values,
+          };
+          setPropertyData(updatedPropertyData);
           onSubmit(values);
           actions.setSubmitting(false);
         }}
@@ -86,14 +87,14 @@ const StepTwo: React.FC<StepTwoProps> = ({ onSubmit }) => {
               data={propertyCategories}
             />
           </div>
-          <TextAreaField placeholder="Description" name="description" type="text" />
-          <Field name='additionalInfo' component={AdditionalInfoComponent} />
+          <TextAreaField
+            placeholder="Description"
+            name="description"
+            type="text"
+          />
+          <Field name="additionalInfo" component={AdditionalInfoComponent} />
 
-          <div className="w-full flex justify-center">
-            <button type="submit" className="btwWizard">
-              Next
-            </button>
-          </div>
+          <NextButton />
         </Form>
       </Formik>
     </div>

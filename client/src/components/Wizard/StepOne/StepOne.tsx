@@ -38,7 +38,7 @@ const StepOne: React.FC<StepOneProps> = ({ onSubmit }) => {
   };
 
   return (
-    <div>
+    <div className="w-desktop m-auto">
       <div className="mb-sizeLarge text-center">
         <h2 className="text-xl">Step 1 of 3</h2>
       </div>

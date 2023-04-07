@@ -60,7 +60,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ onSubmit }) => {
   ];
 
   return (
-    <div>
+    <div className="w-desktop m-auto">
       <div className="mb-sizeLarge text-center">
         <h2 className="text-xl">Step 2 of 3</h2>
       </div>

@@ -9,7 +9,7 @@ const AddProeprty = () => {
   };
 
   return (
-    <div className="w-desktop mx-auto my-sizeXl bg-white p-sizeLarge pb-sizeDoubleXl">
+    <div className="mx-auto my-sizeXl bg-white p-sizeLarge pb-sizeDoubleXl">
       {step !== 1 && (
         <div
           className="inline-flex flex-row items-center gap-2 cursor-pointer"

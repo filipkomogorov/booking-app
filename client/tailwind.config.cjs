@@ -36,6 +36,7 @@ module.exports = {
       black: '#000000',
       white: "#ffffff",
       error: "#fc8181",
+      royal: '#4169e1'
     },
     
   },

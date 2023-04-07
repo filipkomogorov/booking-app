@@ -24,7 +24,12 @@ const initialValues:PropertyData = {
   type: undefined,
   category: undefined,
   advertisementType: undefined,
-  additionalInfo: []
+  additionalInfo: [],
+  contacts:{
+    name: '',
+    email: '',
+    phoneNumber: ''
+  }
 }
 
 const PropertyContext = createContext<PropertyContextType | undefined>(undefined);

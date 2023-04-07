@@ -1,5 +1,11 @@
 import { AdditionalInfo } from "./Property.enum";
 
+export interface Contacts {
+    name: string;
+    email: string;
+    phoneNumber?: string;
+}
+
 export interface Location {
     city: string;
     address: string;
@@ -38,4 +44,5 @@ export interface PropertyData {
     category?: PropertyCategory;
     advertisementType?: AdvertisementType;
     additionalInfo?: Array<AdditionalInfo>;
+    contacts: Contacts
   }

@@ -9,12 +9,12 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState<number>(0);
 
   return (
-    <div style={{ width: "60%" }}>
+    <div className="mb-sizeLarge">
       <div style={{ marginBottom: "5px" }}>
         <img
           style={{
             width: "100%",
-            height: "43rem",
+            height: "55rem",
             objectFit: "cover",
           }}
           src={images[selectedImage]}

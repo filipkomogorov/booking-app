@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  background-color: #F6F5F7;
+  background-color: #FFFFFF;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
 }
@@ -22,6 +22,20 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+input[type="checkbox"]:checked:disabled {
+  position: relative;
+}
+
+input[type="checkbox"]:checked:disabled::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(36, 36, 194); 
+  z-index: 1;
+  pointer-events: none;
 }
 
 #secondaryImages::-webkit-scrollbar {
@@ -49,4 +63,11 @@ input[type=number] {
   color: #fff;
   background-color: #E4002B;
   border: none;
+}
+
+tr td:first-child{
+  padding-right: 30px;
+}
+tr td{
+  padding-bottom: 5px;
 }

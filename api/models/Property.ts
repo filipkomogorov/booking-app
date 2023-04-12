@@ -20,7 +20,8 @@ const PropertySchema = new Schema({
     type: { type: String, enum: PropertyType, required: true },
     category: { type: String, enum: PropertyCategory, required: true },
     advertisementType: {type: String, enum: AdvertisementType, required: true},
-    additionalInfo: {type: [String], enum: AdditionalInfo}
+    additionalInfo: {type: [String], enum: AdditionalInfo},
+    createdAt: {type: Date, default: Date.now}
   });
   
 

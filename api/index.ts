@@ -13,7 +13,7 @@ import { User as UserRoles } from "./enums/User.enum";
 import { cloudinary } from "./utils/cloudinary";
 import { IProperty } from "./models/PropertyInterface";
 import { Property } from "./models/Property";
-import { uploadImages, verifyUser } from "./utils/utils";
+import { getLatestPropertiesForSell, uploadImages, verifyUser } from "./utils/utils";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -95,6 +95,9 @@ app.post('/add-listing', async (req: Request, res: Response)=> {
 
 
 })
+
+// GET NEWESET LISTINGS
+app.get('/latest-properties-for-sale', getLatestPropertiesForSell)
 
 
 // REGISTER

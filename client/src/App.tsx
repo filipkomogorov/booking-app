@@ -8,6 +8,7 @@ import axios from "axios";
 import AccountPage from "./pages/AccountPage";
 import AddProeprty from "./pages/AddProeprty";
 import Property from "./pages/Property";
+import Buy from "./pages/Buy";
 
 axios.defaults.baseURL = "http://localhost:3000";
 
@@ -23,7 +24,7 @@ function App() {
           <Route path='/account' element={<AccountPage />}/>
           <Route path='/add' element={<AddProeprty/>}/>
           <Route path='/:id' element={<Property />} />
-          <Route path="/buy" />
+          <Route path="/buy" element={<Buy />} />
           <Route path="/rent" />
           <Route path="/contacts" />
           <Route path="/buy/property/:id" />

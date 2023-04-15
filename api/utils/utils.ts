@@ -1,7 +1,8 @@
-import { IUser } from "../models/UserInterface";
+import { Request, Response } from "express";
 import { cloudinary } from "./cloudinary"
-import User from "../models/User";
+import { Property } from "../models/Property";
 import * as jwt from 'jsonwebtoken'
+import { AdvertisementType } from "../enums/Property.enum";
 export const uploadImages = async (base64Images: Array<string>) => {
     const uploadedImages = []
 
@@ -41,4 +42,13 @@ export const verifyUser = (options: VerifyingJwtOptions): Promise<jwt.JwtPayload
             }
         })
     })
+}
+
+export const getLatestPropertiesForSell = async (req:Request, res:Response) =>{
+    try{
+        const properties = await Property.find({advertisementType: AdvertisementType.SELL}).sort({createdAt: -1}).limit(5)
+        res.status(200).json(properties)
+    }catch(err){
+        res.status(500).json({message: 'Error getting latest properties for sell'})
+    }
 }

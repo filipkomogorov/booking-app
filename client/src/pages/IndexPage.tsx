@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import Header from "../components/Header/Header"
 import axios from "axios"
 import { PropertyData } from "../models/Property"
 
@@ -14,7 +13,6 @@ const getLatestPropertiesForSale = async () => {
     console.log(err)
   }
 }
-
   useEffect(()=>{
     getLatestPropertiesForSale()
   },[]) 

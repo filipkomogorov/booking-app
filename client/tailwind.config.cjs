@@ -6,6 +6,7 @@ module.exports = {
       width: {
         login: '50rem',
         desktop: '72rem',
+        desktopWide: '120rem',
         uploadBtn: '30rem'
       },
       height: {

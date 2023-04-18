@@ -23,11 +23,11 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path='/account' element={<AccountPage />}/>
           <Route path='/add' element={<AddProeprty/>}/>
-          <Route path='/:id' element={<Property />} />
+          <Route path='/buy/:id' element={<Property />} />
+          <Route path='/rent/:id' element={<Property />} />
           <Route path="/buy" element={<Buy />} />
           <Route path="/rent" />
           <Route path="/contacts" />
-          <Route path="/buy/property/:id" />
           <Route path="/rent/property/:id/contact" />
         </Route>
       </Routes>

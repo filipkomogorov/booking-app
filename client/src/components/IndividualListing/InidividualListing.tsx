@@ -7,11 +7,11 @@ import Details from "../ListingDetails/Details";
 import Description from "../ListingDetails/Description";
 
 interface IndividualListingProps {
-  listing: PropertyData;
+  listing?: PropertyData;
 }
 
 const InidividualListing: React.FC<IndividualListingProps> = ({ listing }) => {
-  return (
+  return !!listing ? (
     <div style={{ width: "95%", margin: "0 auto"}} >
       <div className="mb-sizeMedium">
         <h2 className="text-xxl ">{listing.title}</h2>
@@ -30,7 +30,7 @@ const InidividualListing: React.FC<IndividualListingProps> = ({ listing }) => {
 
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default InidividualListing;

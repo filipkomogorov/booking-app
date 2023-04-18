@@ -90,14 +90,32 @@ app.post('/add-listing', async (req: Request, res: Response)=> {
   } else {
     res.status(400).json({message: "No token provided"});
   }
-
-
-
-
 })
 
 // GET NEWESET LISTINGS
 app.get('/latest-properties-for-sale', getLatestPropertiesForSell)
+
+// GET PROPERTY BY ID
+
+app.get('/search-property', async (req: Request, res: Response) => {
+  const param = req.query.id;
+
+  if (param) {
+    try {
+      const response = await Property.findById(param) as IProperty
+      if (response) {
+        res.status(200).json(response);
+      } else {
+        res.status(400).json(`Could not get property with id ${param}`);
+      }
+    } catch (error) {
+      console.error('Error querying the database:', error);
+      res.status(500).json('Internal server error');
+    }
+  } else {
+    res.status(401).json('Invalid property Id');
+  }
+});
 
 
 // REGISTER

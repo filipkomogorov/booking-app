@@ -16,8 +16,8 @@ const Header = () => {
         <p className="leading-none pt-2">HeavenEstate</p>
       </Link>
       <div className="flex gap-14 text-3xl items-center font-semibold">
-        <Link to={"/properties/buy"}>Buy</Link>
-        <Link to={"/properties/rent"}>Rent</Link>
+        <Link to={"/buy"}>Buy</Link>
+        <Link to={"/rent"}>Rent</Link>
         <Link to={"/properties/find-agent"}>Find Agent</Link>
         <Link to={"/contacts"}>Contacts</Link>
       </div>

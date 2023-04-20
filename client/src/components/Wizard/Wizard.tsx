@@ -26,7 +26,6 @@ const Wizard: React.FC<stepInterface> = ({ step, setStep }) => {
   const {user} = useContext(UserContext)
   const handleSubmit = async () => {
     setIsLoading(true);
-    console.log(user)
 
   try {
     const response = await axios.post(

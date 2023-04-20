@@ -58,7 +58,6 @@ app.post('/add-listing', async (req: Request, res: Response)=> {
   const {token} = req.cookies
 
   if (token) { 
-
     try{
       const userPayload = await verifyUser({token, jwtSecret})
 
@@ -210,9 +209,9 @@ app.get("/profile", async (req: Request, res: Response) => {
 
       if(userPayload.id){
         const userData = (await User.findById(userPayload.id))as IUser;
-        const {firstName, lastName, email, id, role} = userData
+        const {firstName, lastName, email, id, role, phoneNumber} = userData
 
-        res.json({firstName, lastName, email, id, role})
+        res.json({firstName, lastName, email, id, role, phoneNumber})
       }
     }catch(error){
       res.status(400).json({message: "Invalid Token"})

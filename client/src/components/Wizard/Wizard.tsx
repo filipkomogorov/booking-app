@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   WizardStepOneProps,
   WizardStepTwoProps,
@@ -10,6 +10,9 @@ import StepTwo from "./StepTwo/StepTwo";
 import { usePropertyData } from "../../context/PropertyContext";
 import Loading from "../Loading/Loading";
 import axios from "axios";
+import { UserContext } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import { AdvertisementType } from "../../models/Property";
 
 type stepInterface = {
   step: number;
@@ -18,25 +21,37 @@ type stepInterface = {
 
 const Wizard: React.FC<stepInterface> = ({ step, setStep }) => {
   const { propertyData, setPropertyData } = usePropertyData();
+  const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const {user} = useContext(UserContext)
   const handleSubmit = async () => {
     setIsLoading(true);
 
-    try {
-      const response = await axios.post(
-        "/add-listing",
-        { ...propertyData },
-        { withCredentials: true }
-
-        // If response => Navigate to the individual listing page
+  try {
+    const response = await axios.post(
+      "/add-listing",
+      { ...propertyData,
+      contacts: {
+        name: `${user?.firstName} ${user?.lastName}`,
+        email: user?.email,
+        phoneNumber: user?.phoneNumber
+      }
+      },
+      { withCredentials: true }
       );
-      setIsLoading(false);
-    } catch (err) {
-      console.error(err);
-      setIsLoading(false);
-      // show error for user
-    }
+      if(response){
+        if(response.data.advertisementType === AdvertisementType.SELL){
+          navigate(`/buy/${response.data._id}`)
+        }else{
+          navigate(`/rent/${response.data._id}`)
+        }
+      }
+    setIsLoading(false);
+  } catch (err) {
+    console.error(err);
+    setIsLoading(false);
+    // show error for user
+  }
   };
 
   const onSubmitStepOne = (values: WizardStepOneProps) => {

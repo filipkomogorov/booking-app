@@ -1,12 +1,6 @@
 import * as yup from "yup";
+import { Register } from "../models/User";
 
-export interface Register {
-  email: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-  confirmPassword: string;
-}
 
 export const registrationSchema = yup.object<Register>().shape({
   email: yup.string().email("Please enter a valid email").required("Required"),

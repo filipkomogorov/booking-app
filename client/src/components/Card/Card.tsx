@@ -12,10 +12,9 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ property }) => {
-    console.log(property._id)
   return (
     <Link
-    to={`/${property._id}`}
+    to={`/buy/${property._id}`}
       style={{
         width: "25rem",
         height: "26rem",

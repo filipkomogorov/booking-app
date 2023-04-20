@@ -3,7 +3,7 @@ import { AdditionalInfo } from "./Property.enum";
 export interface Contacts {
     name: string;
     email: string;
-    phoneNumber?: string;
+    phoneNumber: string;
 }
 
 export interface Location {

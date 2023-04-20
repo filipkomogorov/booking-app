@@ -5,6 +5,7 @@ export interface IUser extends Document {
     firstName: string;
     lastName: string;
     email: string;
+    phoneNumber?: string;
     iat: number;
     role: User
 }

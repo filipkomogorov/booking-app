@@ -58,7 +58,6 @@ app.post('/add-listing', async (req: Request, res: Response)=> {
   const {token} = req.cookies
 
   if (token) { 
-
     try{
       const userPayload = await verifyUser({token, jwtSecret})
 
@@ -90,14 +89,32 @@ app.post('/add-listing', async (req: Request, res: Response)=> {
   } else {
     res.status(400).json({message: "No token provided"});
   }
-
-
-
-
 })
 
 // GET NEWESET LISTINGS
 app.get('/latest-properties-for-sale', getLatestPropertiesForSell)
+
+// GET PROPERTY BY ID
+
+app.get('/search-property', async (req: Request, res: Response) => {
+  const param = req.query.id;
+
+  if (param) {
+    try {
+      const response = await Property.findById(param) as IProperty
+      if (response) {
+        res.status(200).json(response);
+      } else {
+        res.status(400).json(`Could not get property with id ${param}`);
+      }
+    } catch (error) {
+      console.error('Error querying the database:', error);
+      res.status(500).json('Internal server error');
+    }
+  } else {
+    res.status(401).json('Invalid property Id');
+  }
+});
 
 
 // REGISTER
@@ -192,9 +209,9 @@ app.get("/profile", async (req: Request, res: Response) => {
 
       if(userPayload.id){
         const userData = (await User.findById(userPayload.id))as IUser;
-        const {firstName, lastName, email, id, role} = userData
+        const {firstName, lastName, email, id, role, phoneNumber} = userData
 
-        res.json({firstName, lastName, email, id, role})
+        res.json({firstName, lastName, email, id, role, phoneNumber})
       }
     }catch(error){
       res.status(400).json({message: "Invalid Token"})

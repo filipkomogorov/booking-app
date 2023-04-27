@@ -1,6 +1,6 @@
 import { Form, Formik, FormikHelpers } from "formik";
+import { Register as registerSchemaTypes} from "../models/User";
 import {
-  Register as registerSchemaTypes,
   registrationSchema,
 } from "../schemas/RegisterValidation";
 import TextField from "../components/TextFields/TextFiled";

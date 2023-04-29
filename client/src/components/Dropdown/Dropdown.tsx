@@ -1,6 +1,7 @@
 import React, { useState, useContext, useRef } from "react";
 import { Transition, TransitionStatus } from "react-transition-group";
 import { UserContext } from "../../context/UserContext";
+import { User } from "../../models/User.enum";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { deleteCookie } from "../../utils/deleteCookie";
@@ -9,7 +10,7 @@ import useClickOutsideComponent from "../../hooks/useClickOutsideComponent";
 const Dropdown = () => {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const { user, setUser } = useContext(UserContext);
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const duration = 100;
 
   const handleClick = () => {
@@ -36,7 +37,6 @@ const Dropdown = () => {
     exiting: { opacity: 0, transform: "translateY(-10px)" },
     exited: { opacity: 0, transform: "translateY(-10px)" },
   };
-
 
   const handleSignout = async () => {
     try {
@@ -89,6 +89,9 @@ const Dropdown = () => {
             >
               <ul className={`absolute top-2 left-0`} onClick={handleClick}>
                 <NavLink to={"/account"}>Account</NavLink>
+                {user?.role === User.ADMIN ? (
+                  <NavLink to="/add">Add Listing</NavLink>
+                ) : null}
                 <li>Favorites</li>
                 <li>Messages</li>
                 <li onClick={handleSignout}>Logout</li>

@@ -1,18 +1,19 @@
 import axios from "axios";
 import React, { createContext, useState, ReactNode, useEffect } from "react";
+import { User } from "../models/User.enum";
 
-type User = {
+type Profile = {
   id: string;
   email: string;
   firstName: string;
   lastName: string;
   phoneNumber?: string;
-  role: boolean;
+  role: User;
 };
 
 type UserContextValue = {
-  user: User | undefined;
-  setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+  user: Profile | undefined;
+  setUser: React.Dispatch<React.SetStateAction<Profile | undefined>>;
   isReady: Boolean;
 };
 
@@ -25,26 +26,24 @@ type UserContextProviderProps = {
 const UserContextProvider: React.FC<UserContextProviderProps> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | undefined>(undefined);
-  const [isReady, setIsReady] = useState<boolean>(false)
+  const [user, setUser] = useState<Profile | undefined>(undefined);
+  const [isReady, setIsReady] = useState<boolean>(false);
 
-  const getUserProfile = async () =>{
-    try{
+  const getUserProfile = async () => {
+    try {
       const response = await axios.get("/profile", { withCredentials: true });
       const { data } = response;
-      setUser(data)
-      setIsReady(true)
-    }catch(err){
-      setIsReady(true)
+      setUser(data);
+      setIsReady(true);
+    } catch (err) {
+      setIsReady(true);
     }
-  }
+  };
 
   useEffect(() => {
-
-    if(!user){
-      getUserProfile()
+    if (!user) {
+      getUserProfile();
     }
-
   }, []);
   return (
     <UserContext.Provider value={{ user, setUser, isReady }}>

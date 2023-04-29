@@ -1,12 +1,21 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 import Wizard from "../components/Wizard/Wizard";
 import { PropertyDataProvider } from "../context/PropertyContext";
+import { User } from "../models/User.enum";
 
 const AddProeprty = () => {
   const [step, setStep] = useState<number>(1);
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const handleStepBack = () => {
     setStep(step - 1);
   };
+
+  if (user?.role !== User.ADMIN) {
+    navigate("/");
+  }
 
   return (
     <div className="mx-auto my-sizeXl bg-white p-sizeLarge pb-sizeDoubleXl">

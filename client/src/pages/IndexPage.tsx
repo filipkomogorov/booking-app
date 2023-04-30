@@ -25,19 +25,48 @@ const IndexPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="w-desktopWide mx-auto">
       <h1>index page</h1>
       <div>
         <div>
           <h2>Latest properties for sale</h2>
-          <div>
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              flexWrap: "wrap",
+              gap: "2rem",
+              justifyContent: "space-between",
+            }}
+          >
             {data &&
               data.sell.map((el, index) => <Card property={el} key={index} />)}
           </div>
         </div>
+
+        <div
+          style={{
+            width: "80%",
+            height: "3px",
+            backgroundColor: "rgba(216,216,216,0.8)",
+            display: "block",
+            borderRadius: "5px",
+            margin: "3.2rem auto 3.2rem 0",
+          }}
+        >
+          {/* separator line */}
+        </div>
         <div>
           <h2>Latest properties for rent</h2>
-          <div>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "2rem",
+              justifyContent: "space-between",
+            }}
+          >
             {data &&
               data.rent.map((element, index) => (
                 <Card property={element} key={index} />

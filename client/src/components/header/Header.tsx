@@ -8,9 +8,14 @@ const Header = () => {
   const { user } = useContext(UserContext);
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
-
   return (
-    <header className="flex justify-between py-8 max-w-7xl mx-auto items-center">
+    <header
+      className="flex justify-between py-8 max-w-7xl items-center"
+      style={{
+        margin: "0 auto",
+        marginBottom: "6.4rem",
+      }}
+    >
       <Link to={"/"} className="flex items-center gap-1">
         <LogoSvg />
         <p className="leading-none pt-2">HeavenEstate</p>
@@ -22,7 +27,8 @@ const Header = () => {
         <Link to={"/contacts"}>Contacts</Link>
       </div>
 
-      {!!user ? (<Dropdown />
+      {!!user ? (
+        <Dropdown />
       ) : (
         <div className="flex gap-5 items-center text-3xl font-semibold">
           <Link to={"/login"}>Log in</Link>

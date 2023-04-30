@@ -12,22 +12,21 @@ interface IndividualListingProps {
 
 const InidividualListing: React.FC<IndividualListingProps> = ({ listing }) => {
   return !!listing ? (
-    <div style={{ width: "95%", margin: "0 auto"}} >
+    <div style={{ width: "95%", margin: "0 auto" }}>
       <div className="mb-sizeMedium">
         <h2 className="text-xxl ">{listing.title}</h2>
         <p className="text-zinc-300 text-small">{listing.location.address}</p>
       </div>
 
       <div className="flex flex-wrap">
-        <div className="flex flex-col" style={{width: "70%"}}>
+        <div className="flex flex-col" style={{ width: "70%" }}>
           <Gallery images={listing.images} />
           <Description description={listing.description} />
-          <Details additionalInfo={listing.additionalInfo}/>
+          <Details additionalInfo={listing.additionalInfo} />
         </div>
-        <div className="flex flex-col" style={{width: "30%"}}>
+        <div className="flex flex-col" style={{ width: "30%" }}>
           <ListingDetails listing={listing} />
         </div>
-
       </div>
     </div>
   ) : null;

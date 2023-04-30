@@ -1,4 +1,9 @@
-import { AdditionalInfo, PropertyCategory, PropertyType, AdvertisementType } from "../enums/Property.enum";
+import {
+  AdditionalInfo,
+  PropertyCategory,
+  PropertyType,
+  AdvertisementType,
+} from "../enums/Property.enum";
 
 export interface Location {
   city: string;
@@ -20,6 +25,10 @@ export interface IProperty {
   type: PropertyType;
   category: PropertyCategory;
   advertisementType: AdvertisementType;
+  contacts: {
+    name: string;
+    email: string;
+    phoneNumber: string;
+  };
   additionalInfo: Array<AdditionalInfo>;
 }
-

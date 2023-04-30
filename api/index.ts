@@ -13,22 +13,26 @@ import { User as UserRoles } from "./enums/User.enum";
 import { cloudinary } from "./utils/cloudinary";
 import { IProperty } from "./models/PropertyInterface";
 import { Property } from "./models/Property";
-import { getLatestPropertiesForSell, uploadImages, verifyUser } from "./utils/utils";
+import {
+  getTheLatestProperties,
+  uploadImages,
+  verifyUser,
+} from "./utils/utils";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
- 
+
 // TODO export this in env
 const jwtSecret = process.env.SECRET!;
- 
+
 if (!jwtSecret) {
   console.error("No jwtSecret found in process.env");
   process.exit(1);
 }
 
 // app.use(express.json());
-app.use(bodyParser.json({limit: '10mb'}))
-app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
 app.use(cookieParser());
 app.use(
   cors({
@@ -53,69 +57,67 @@ app.get("/test", (req: Request, res: Response) => {
 });
 
 // MAKE NEW LISTING
-app.post('/add-listing', async (req: Request, res: Response)=> {
-  const property: IProperty  = req.body
-  const {token} = req.cookies
+app.post("/add-listing", async (req: Request, res: Response) => {
+  const property: IProperty = req.body;
+  const { token } = req.cookies;
 
-  if (token) { 
-    try{
-      const userPayload = await verifyUser({token, jwtSecret})
+  if (token) {
+    try {
+      const userPayload = await verifyUser({ token, jwtSecret });
 
-      if(userPayload.id){
-        const userData = (await User.findById(userPayload.id))as IUser;
-        const {role} = userData
+      if (userPayload.id) {
+        const userData = (await User.findById(userPayload.id)) as IUser;
+        const { role } = userData;
 
-        if(role === UserRoles.USER_ADMIN){
+        if (role === UserRoles.USER_ADMIN) {
           try {
-            const uploadedImageUrls = await uploadImages(property.images)
+            const uploadedImageUrls = await uploadImages(property.images);
             const listing = await Property.create({
               ...property,
-              images: uploadedImageUrls
-            })
-        
-            if(listing){
+              images: uploadedImageUrls,
+            });
+
+            if (listing) {
               res.status(200).json(listing);
             }
-          }catch(err){
-            res.status(500).json({message: err})
+          } catch (err) {
+            res.status(500).json({ message: err });
           }
-        }else{
-          res.status(401).json({message: "Not authorized"})
+        } else {
+          res.status(401).json({ message: "Not authorized" });
         }
       }
-    }catch(error){
-      res.status(400).json({message: "Invalid Token"})
+    } catch (error) {
+      res.status(400).json({ message: "Invalid Token" });
     }
   } else {
-    res.status(400).json({message: "No token provided"});
+    res.status(400).json({ message: "No token provided" });
   }
-})
+});
 
 // GET NEWESET LISTINGS
-app.get('/latest-properties-for-sale', getLatestPropertiesForSell)
+app.get("/get-latest-properties", getTheLatestProperties);
 
 // GET PROPERTY BY ID
-
-app.get('/search-property', async (req: Request, res: Response) => {
+app.get("/search-property", async (req: Request, res: Response) => {
   const param = req.query.id;
 
   if (param) {
     try {
-      const response = await Property.findById(param) as IProperty
+      const response = (await Property.findById(param)) as IProperty;
       if (response) {
         res.status(200).json(response);
       } else {
         res.status(400).json(`Could not get property with id ${param}`);
       }
     } catch (error) {
-      console.error('Error querying the database:', error);
-      res.status(500).json('Internal server error');
+      console.error("Error querying the database:", error);
+      res.status(500).json("Internal server error");
     }
   } else {
-    res.status(401).json('Invalid property Id');
+    res.status(401).json("Invalid property Id");
   }
 });
-
 
 // REGISTER
 app.post("/register", async (req: Request, res: Response) => {
@@ -202,22 +204,21 @@ app.post("/login", async (req: Request, res: Response) => {
 // PROFILE
 app.get("/profile", async (req: Request, res: Response) => {
   const { token } = req.cookies;
-  if (token) { 
+  if (token) {
+    try {
+      const userPayload = await verifyUser({ token, jwtSecret });
 
-    try{
-      const userPayload = await verifyUser({token, jwtSecret})
+      if (userPayload.id) {
+        const userData = (await User.findById(userPayload.id)) as IUser;
+        const { firstName, lastName, email, id, role, phoneNumber } = userData;
 
-      if(userPayload.id){
-        const userData = (await User.findById(userPayload.id))as IUser;
-        const {firstName, lastName, email, id, role, phoneNumber} = userData
-
-        res.json({firstName, lastName, email, id, role, phoneNumber})
+        res.json({ firstName, lastName, email, id, role, phoneNumber });
       }
-    }catch(error){
-      res.status(400).json({message: "Invalid Token"})
+    } catch (error) {
+      res.status(400).json({ message: "Invalid Token" });
     }
   } else {
-    res.status(400).json({message: "No token provided"});
+    res.status(400).json({ message: "No token provided" });
   }
 });
 

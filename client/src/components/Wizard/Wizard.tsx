@@ -21,37 +21,38 @@ type stepInterface = {
 
 const Wizard: React.FC<stepInterface> = ({ step, setStep }) => {
   const { propertyData, setPropertyData } = usePropertyData();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext);
   const handleSubmit = async () => {
     setIsLoading(true);
 
-  try {
-    const response = await axios.post(
-      "/add-listing",
-      { ...propertyData,
-      contacts: {
-        name: `${user?.firstName} ${user?.lastName}`,
-        email: user?.email,
-        phoneNumber: user?.phoneNumber
-      }
-      },
-      { withCredentials: true }
+    try {
+      const response = await axios.post(
+        "/add-listing",
+        {
+          ...propertyData,
+          contacts: {
+            name: `${user?.firstName} ${user?.lastName}`,
+            email: user?.email,
+            phoneNumber: user?.phoneNumber,
+          },
+        },
+        { withCredentials: true }
       );
-      if(response){
-        if(response.data.advertisementType === AdvertisementType.SELL){
-          navigate(`/buy/${response.data._id}`)
-        }else{
-          navigate(`/rent/${response.data._id}`)
+      if (response) {
+        if (response.data.advertisementType === AdvertisementType.SELL) {
+          navigate(`/buy/${response.data._id}`);
+        } else {
+          navigate(`/rent/${response.data._id}`);
         }
       }
-    setIsLoading(false);
-  } catch (err) {
-    console.error(err);
-    setIsLoading(false);
-    // show error for user
-  }
+      setIsLoading(false);
+    } catch (err) {
+      console.error(err);
+      setIsLoading(false);
+      // show error for user
+    }
   };
 
   const onSubmitStepOne = (values: WizardStepOneProps) => {
@@ -100,7 +101,11 @@ const Wizard: React.FC<stepInterface> = ({ step, setStep }) => {
         <>
           <Preview />
           <div className="w-full flex justify-center mt-sizeDoubleXl">
-            <button onClick={() => handleSubmit()} type="submit" className="btwWizard">
+            <button
+              onClick={() => handleSubmit()}
+              type="submit"
+              className="btwWizard"
+            >
               Submit
             </button>
           </div>

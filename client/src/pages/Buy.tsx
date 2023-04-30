@@ -1,5 +1,3 @@
-import React from "react";
-import { PropertyData } from "../models/Property";
 import { PropertyType } from "../models/Property";
 import { PropertyCategory } from "../models/Property";
 import { AdvertisementType } from "../models/Property";
@@ -14,7 +12,7 @@ const properties = [
   {
     title: "Two beroom house in Sydenham",
     images: [image, image1, image2, image3],
-    _id:"6437a1c304c88ebbfb6854b1",
+    _id: "6437a1c304c88ebbfb6854b1",
     location: {
       city: "Gabrovo",
       zip: "5300",
@@ -35,7 +33,7 @@ const properties = [
   },
   {
     title: "Beatiful apartment in out Tokyo outscurts",
-    _id:"6437a1c304c88ebbfb6854b1",
+    _id: "6437a1c304c88ebbfb6854b1",
     images: [image1, image2, image3, image],
     location: {
       city: "Gabrovo",
@@ -58,7 +56,7 @@ const properties = [
   {
     title: "Vintage house in lively neighborhood",
     images: [image2, image3, image, image1],
-    _id:"6437a1c304c88ebbfb6854b1",
+    _id: "6437a1c304c88ebbfb6854b1",
     location: {
       city: "London",
       zip: "1000",
@@ -78,14 +76,14 @@ const properties = [
     },
   },
   {
-    title: 'Two beroom house in Sydenham',
+    title: "Two beroom house in Sydenham",
     images: [image, image1, image2, image3],
-    _id:"6437a1c304c88ebbfb6854b1",
+    _id: "6437a1c304c88ebbfb6854b1",
     location: {
       city: "Gabrovo",
       zip: "5300",
       region: "Gabrovo",
-      address: "Tranito 941, st.th."
+      address: "Tranito 941, st.th.",
     },
     price: 5150000,
     size: 155,
@@ -94,9 +92,9 @@ const properties = [
     category: PropertyCategory.FAMILY_HOUSE,
     advertisementType: AdvertisementType.SELL,
     contacts: {
-      name: 'Filip Komogorov',
-      email: 'filipsemail@mail.com',
-      phoneNumber: '591281322'
+      name: "Filip Komogorov",
+      email: "filipsemail@mail.com",
+      phoneNumber: "591281322",
     },
   },
 ];
@@ -105,18 +103,28 @@ const Buy = () => {
   return (
     <div className="w-desktopWide mx-auto flex flex-row">
       <div style={{ width: "20%", marginRight: "2rem" }}>Filter here</div>
-
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "2rem",
-          justifyContent: "space-between",
-        }}
-      >
-        {properties.map((property, index) => (
-          <Card property={property} key={index}/>
-        ))}
+      <div>
+        {/* TODO - make a breadcrumbs component */}
+        <h3
+          style={{
+            fontSize: "2rem",
+            marginBottom: "1.8rem",
+          }}
+        >
+          Buy a property
+        </h3>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "2rem",
+            justifyContent: "space-between",
+          }}
+        >
+          {properties.map((property, index) => (
+            <Card property={property} key={index} />
+          ))}
+        </div>
       </div>
     </div>
   );

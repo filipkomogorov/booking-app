@@ -4,6 +4,7 @@ import axios from "axios";
 import { PropertyData } from "../models/Property";
 import Card from "../components/Card/Card";
 import { Link } from "react-router-dom";
+import SearchBar from "../components/SearchBar/SearchBar";
 
 type CombinedProperties = {
   sell: Array<PropertyData>;
@@ -12,6 +13,34 @@ type CombinedProperties = {
 
 const IndexPage = () => {
   const [data, setData] = useState<CombinedProperties>();
+  const [itemChosen, setItemChosen] = useState<string>("Buy");
+
+  interface ListItemProps {
+    label: string;
+  }
+
+  const ListItem: React.FC<ListItemProps> = ({ label }) => {
+    const commonStyle: React.CSSProperties = {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "25%",
+      textAlign: "center",
+      height: "5rem",
+      cursor: "pointer",
+      padding: "0.5rem",
+      borderBottom:
+        label === itemChosen ? "2px solid red" : "1px solid #a69da1",
+    };
+
+    return (
+      <li onClick={() => setItemChosen(label)} style={commonStyle}>
+        {label}
+      </li>
+    );
+  };
+
+  const ListItems = ["Buy", "Rent", "Address", "Agents"];
 
   const getLatestProperties = async () => {
     try {
@@ -35,10 +64,36 @@ const IndexPage = () => {
           backgroundImage: `url(${banner})`,
           backgroundSize: "cover",
           backgroundPosition: "bottom",
-          marginBottom: "3.2rem",
+          marginBottom: "6.4rem",
           position: "relative",
         }}
-      ></div>
+      >
+        <div
+          style={{
+            width: "75rem",
+            height: "13rem",
+            borderRadius: "0.5rem",
+            backgroundColor: "white",
+            position: "absolute",
+            top: "20%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <ul className="flex flex-row">
+            {ListItems.map((item, index) => (
+              <ListItem key={index} label={item} />
+            ))}
+          </ul>
+          <div style={{ height: "7rem" }}>
+            <SearchBar
+              placeholder="get placeholder"
+              name={"search"}
+              type={"text"}
+            />
+          </div>
+        </div>
+      </div>
       <div className="w-desktopWide mx-auto">
         <div>
           <div>

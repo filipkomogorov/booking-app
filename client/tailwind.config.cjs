@@ -4,42 +4,41 @@ module.exports = {
   theme: {
     extend: {
       width: {
-        login: '50rem',
-        desktop: '72rem',
-        desktopWide: '120rem',
-        uploadBtn: '30rem'
+        login: "50rem",
+        desktop: "72rem",
+        desktopWide: "120rem",
+        uploadBtn: "30rem",
       },
       height: {
-        uploadBtn: '7rem',
-        textarea: '12rem',
-        addListingHeight: '828px'
+        uploadBtn: "7rem",
+        textarea: "12rem",
+        addListingHeight: "828px",
       },
       spacing: {
-        sizeSmall: '8px',
-        sizeMedium: '16px',
-        sizeLarge: '24px',
-        sizeXl: '32px',
-        sizeXxl: '40px',
-        sizeDoubleXl: '64px',
+        sizeSmall: "8px",
+        sizeMedium: "16px",
+        sizeLarge: "24px",
+        sizeXl: "32px",
+        sizeXxl: "40px",
+        sizeDoubleXl: "64px",
       },
       fontSize: {
-        small: '1,4rem',
-        medium: '1.6rem',
-        large: '1.8rem',
-        xl: '2rem',
-        xxl: '2.2rem'
-      }
+        small: "1,4rem",
+        medium: "1.6rem",
+        large: "1.8rem",
+        xl: "2rem",
+        xxl: "2.2rem",
+      },
     },
     colors: {
-      bg: '#F6F5F7',
+      bg: "#F6F5F7",
       cta: "#E4002B",
-      link: '#0063AB',
-      black: '#000000',
+      link: "#0063AB",
+      black: "#000000",
       white: "#ffffff",
       error: "#fc8181",
-      royal: '#4169e1'
+      royal: "#4169e1",
     },
-    
   },
   plugins: [],
 };

@@ -2,7 +2,7 @@ import React from "react";
 import TextFieldWithIcon from "../TextFields/TextFieldWithIcon";
 
 interface SearchBar {
-  placeholder: string;
+  placeholder?: string;
   name: string;
   type: string;
 }
@@ -16,14 +16,14 @@ const SearchBar: React.FC<SearchBar> = ({ ...props }) => {
         height: "100%",
       }}
     >
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center pr-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-12 h-12"
+          className="w-8 h-8"
         >
           <path
             strokeLinecap="round"
@@ -39,11 +39,11 @@ const SearchBar: React.FC<SearchBar> = ({ ...props }) => {
             border: "none",
             outline: "none",
             height: "5rem",
-            width: "43rem",
+            width: "60rem",
           }}
         />
       </div>
-      <button>Search</button>
+      <button className="rounded-lg px-7 py-3 bg-cta text-white">Search</button>
     </div>
   );
 };

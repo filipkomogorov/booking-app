@@ -11,9 +11,25 @@ type CombinedProperties = {
   rent: Array<PropertyData>;
 };
 
+const ListItems = ["Buy", "Rent", "Address", "Agents"];
+
 const IndexPage = () => {
   const [data, setData] = useState<CombinedProperties>();
   const [itemChosen, setItemChosen] = useState<string>("Buy");
+
+  const getPlaceholderText = () => {
+    switch (itemChosen) {
+      case "Buy":
+      case "Rent":
+        return "Search properties by City";
+      case "Address":
+        return "Search properties by Address";
+      case "Agents":
+        return "Search for an Agent by City";
+      default:
+        "Search by City";
+    }
+  };
 
   interface ListItemProps {
     label: string;
@@ -30,7 +46,7 @@ const IndexPage = () => {
       cursor: "pointer",
       padding: "0.5rem",
       borderBottom:
-        label === itemChosen ? "2px solid red" : "1px solid #a69da1",
+        label === itemChosen ? "3px solid #E4002B" : "1px solid #a69da1",
     };
 
     return (
@@ -39,8 +55,6 @@ const IndexPage = () => {
       </li>
     );
   };
-
-  const ListItems = ["Buy", "Rent", "Address", "Agents"];
 
   const getLatestProperties = async () => {
     try {
@@ -65,13 +79,14 @@ const IndexPage = () => {
           backgroundSize: "cover",
           backgroundPosition: "bottom",
           marginBottom: "6.4rem",
+          borderRadius: "0.5rem",
           position: "relative",
         }}
       >
         <div
           style={{
             width: "75rem",
-            height: "13rem",
+            height: "12rem",
             borderRadius: "0.5rem",
             backgroundColor: "white",
             position: "absolute",
@@ -87,7 +102,7 @@ const IndexPage = () => {
           </ul>
           <div style={{ height: "7rem" }}>
             <SearchBar
-              placeholder="get placeholder"
+              placeholder={getPlaceholderText()}
               name={"search"}
               type={"text"}
             />

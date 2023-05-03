@@ -18,6 +18,7 @@ import {
   uploadImages,
   verifyUser,
 } from "./utils/utils";
+import { AdvertisementType } from "./enums/Property.enum";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -30,7 +31,6 @@ if (!jwtSecret) {
   process.exit(1);
 }
 
-// app.use(express.json());
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
 app.use(cookieParser());
@@ -56,7 +56,7 @@ app.get("/test", (req: Request, res: Response) => {
   res.send("Hello World !!!");
 });
 
-// MAKE NEW LISTING
+// !!! MAKE NEW LISTING
 app.post("/add-listing", async (req: Request, res: Response) => {
   const property: IProperty = req.body;
   const { token } = req.cookies;
@@ -95,10 +95,10 @@ app.post("/add-listing", async (req: Request, res: Response) => {
   }
 });
 
-// GET NEWESET LISTINGS
+// !!! GET NEWESET LISTINGS
 app.get("/get-latest-properties", getTheLatestProperties);
 
-// GET PROPERTY BY ID
+//  !!! GET PROPERTY BY ID
 app.get("/search-property", async (req: Request, res: Response) => {
   const param = req.query.id;
 
@@ -119,7 +119,28 @@ app.get("/search-property", async (req: Request, res: Response) => {
   }
 });
 
-// REGISTER
+// !!! GET PROPERTY BY CITY AND ADD TYPE
+
+app.get("/search-property-by-city", async (req: Request, res: Response) => {
+  const { city, advertisementType } = req.body;
+
+  const searchAddType =
+    advertisementType === AdvertisementType.RENT
+      ? AdvertisementType.RENT
+      : AdvertisementType.SELL;
+
+  try {
+    const properties = await Property.find({
+      advertisementType: searchAddType,
+      "location.city": city,
+    });
+    res.status(200).json(properties);
+  } catch (err) {
+    res.status(500).json({ message: "Error getting the properties: ", err });
+  }
+});
+
+// !!! REGISTER
 app.post("/register", async (req: Request, res: Response) => {
   const { email, password, firstName, lastName }: Register = req.body;
 
@@ -161,7 +182,7 @@ app.post("/register", async (req: Request, res: Response) => {
   }
 });
 
-// LOGIN
+// !!! LOGIN
 app.post("/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
@@ -201,7 +222,7 @@ app.post("/login", async (req: Request, res: Response) => {
   }
 });
 
-// PROFILE
+// !!! PROFILE
 app.get("/profile", async (req: Request, res: Response) => {
   const { token } = req.cookies;
   if (token) {
@@ -222,7 +243,7 @@ app.get("/profile", async (req: Request, res: Response) => {
   }
 });
 
-// LOGOUT
+// !!! LOGOUT
 app.post("/logout", (req, res) => {
   res.cookie("token", "", {
     expires: new Date(0),

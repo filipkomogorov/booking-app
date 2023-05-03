@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import banner from "../assets/banner.jpg";
 import axios from "axios";
-import { PropertyData } from "../models/Property";
+import { AdvertisementType, PropertyData } from "../models/Property";
 import Card from "../components/Card/Card";
 import { Link } from "react-router-dom";
 import SearchBar from "../components/SearchBar/SearchBar";
@@ -103,6 +103,13 @@ const IndexPage = () => {
           <div style={{ height: "7rem" }}>
             <SearchBar
               placeholder={getPlaceholderText()}
+              addType={
+                itemChosen === "Buy"
+                  ? AdvertisementType.SELL
+                  : itemChosen === "Rent"
+                  ? AdvertisementType.RENT
+                  : undefined
+              }
               name={"search"}
               type={"text"}
             />

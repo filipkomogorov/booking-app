@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import TextFieldWithIcon from "../TextFields/TextFieldWithIcon";
+import { useNavigate } from "react-router-dom";
+import { AdvertisementType } from "../../models/Property";
 
 interface SearchBar {
   placeholder?: string;
+  addType?: AdvertisementType;
   name: string;
   type: string;
 }
 
 const SearchBar: React.FC<SearchBar> = ({ ...props }) => {
+  const [propertyType, setPropertyType] = useState<
+    AdvertisementType | undefined
+  >(props.addType);
+  const [city, setCity] = useState<string | undefined>();
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    // ! Search for property -> navigate to results page and pass the search results as query params
+    // ! Search for agents -> navigate to Agents page with filter by city
+  };
+
   return (
     <div
       className="flex flex-row items-center justify-center align-content-center"
@@ -35,6 +49,7 @@ const SearchBar: React.FC<SearchBar> = ({ ...props }) => {
       <div>
         <input
           {...props}
+          onChange={(e) => setCity(e.target.value)}
           style={{
             border: "none",
             outline: "none",
@@ -43,7 +58,12 @@ const SearchBar: React.FC<SearchBar> = ({ ...props }) => {
           }}
         />
       </div>
-      <button className="rounded-lg px-7 py-3 bg-cta text-white">Search</button>
+      <button
+        className="rounded-lg px-7 py-3 bg-cta text-white"
+        onClick={() => handleSearch()}
+      >
+        Search
+      </button>
     </div>
   );
 };

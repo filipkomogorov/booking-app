@@ -8,7 +8,7 @@ const ResultsPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axios.get("/results", { params: searchParams });
+      const { data } = await axios.get("/results?", { params: searchParams });
       setResults(data);
     };
 

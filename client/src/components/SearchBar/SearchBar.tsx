@@ -11,15 +11,24 @@ interface SearchBar {
 }
 
 const SearchBar: React.FC<SearchBar> = ({ ...props }) => {
-  const [propertyType, setPropertyType] = useState<
-    AdvertisementType | undefined
-  >(props.addType);
   const [city, setCity] = useState<string | undefined>();
   const navigate = useNavigate();
 
+  const queryParams = new URLSearchParams();
+
   const handleSearch = () => {
-    // ! Search for property -> navigate to results page and pass the search results as query params
-    // ! Search for agents -> navigate to Agents page with filter by city
+    if (props.addType) {
+      queryParams.set("addType", props.addType);
+    }
+
+    if (city) {
+      queryParams.set("city", city);
+    }
+
+    queryParams.set("page", "1");
+    queryParams.set("limit", "20");
+
+    navigate(`/results?${queryParams.toString()}`);
   };
 
   return (

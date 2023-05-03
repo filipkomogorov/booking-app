@@ -119,13 +119,14 @@ app.get("/search-property", async (req: Request, res: Response) => {
   }
 });
 
-// !!! GET PROPERTY BY CITY AND ADD TYPE
+// !!! GET RESULTS BY CITY AND ADD TYPE
 
-app.get("/search-property-by-city", async (req: Request, res: Response) => {
-  const { city, advertisementType } = req.body;
+app.get("/results", async (req: Request, res: Response) => {
+  const { city, addType } = req.query;
+  console.log(city, addType);
 
   const searchAddType =
-    advertisementType === AdvertisementType.RENT
+    addType === AdvertisementType.RENT
       ? AdvertisementType.RENT
       : AdvertisementType.SELL;
 

@@ -26,7 +26,7 @@ const SearchBar: React.FC<SearchBar> = ({ ...props }) => {
     }
 
     queryParams.set("page", "1");
-    queryParams.set("limit", "20");
+    queryParams.set("limit", "10");
 
     navigate(`/results?${queryParams.toString()}`);
   };

@@ -9,6 +9,7 @@ import AccountPage from "./pages/AccountPage";
 import AddProeprty from "./pages/AddProeprty";
 import Property from "./pages/Property";
 import Buy from "./pages/Buy";
+import ResultsPage from "./pages/ResultsPage";
 
 axios.defaults.baseURL = "http://localhost:3000";
 
@@ -21,12 +22,13 @@ function App() {
           <Route index element={<IndexPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path='/account' element={<AccountPage />}/>
-          <Route path='/add' element={<AddProeprty/>}/>
-          <Route path='/buy/:id' element={<Property />} />
-          <Route path='/rent/:id' element={<Property />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/add" element={<AddProeprty />} />
+          <Route path="/buy/:id" element={<Property />} />
+          <Route path="/rent/:id" element={<Property />} />
           <Route path="/buy" element={<Buy />} />
           <Route path="/rent" />
+          <Route path="/results" element={<ResultsPage />} />
           <Route path="/contacts" />
           <Route path="/rent/property/:id/contact" />
         </Route>

@@ -123,7 +123,6 @@ app.get("/search-property", async (req: Request, res: Response) => {
 
 app.get("/results", async (req: Request, res: Response) => {
   const { city, addType } = req.query;
-  console.log(city, addType);
 
   const searchAddType =
     addType === AdvertisementType.RENT

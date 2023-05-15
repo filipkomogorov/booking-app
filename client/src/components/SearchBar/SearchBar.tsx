@@ -8,6 +8,7 @@ interface SearchBar {
   addType?: AdvertisementType;
   name: string;
   type: string;
+  style?: React.CSSProperties;
 }
 
 const SearchBar: React.FC<SearchBar> = ({ ...props }) => {
@@ -37,6 +38,7 @@ const SearchBar: React.FC<SearchBar> = ({ ...props }) => {
       style={{
         width: "100%",
         height: "100%",
+        ...props.style,
       }}
     >
       <div className="flex justify-center items-center pr-4">
